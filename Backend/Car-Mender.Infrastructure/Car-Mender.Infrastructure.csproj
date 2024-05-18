@@ -8,4 +8,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Car-Mender.Domain\Car-Mender.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
