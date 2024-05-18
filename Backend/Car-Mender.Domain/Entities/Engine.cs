@@ -4,7 +4,7 @@ namespace Car_Mender.Domain.Entities;
 
 public class Engine : BaseEntity
 {
-    public required string EngineCode { get; set; }
+    public required string EngineCode { get; init; }
     public required uint Displacement { get; set; }
     public required uint PowerKw { get; set; }
     public required uint TorqueNm { get; set; }
