@@ -1,3 +1,6 @@
+using Car_Mender.Infrastructure.Persistence.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
+
 namespace Car_Mender.API;
 
 public class Program
@@ -12,6 +15,12 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options =>
+        {
+            options.UseSqlServer(connectionString);
+        });
 
         var app = builder.Build();
 
