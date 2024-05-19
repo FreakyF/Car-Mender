@@ -9,7 +9,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options), IAppDb
     public DbSet<Appointment> Appointments { get; set; } = null!;
     public DbSet<Branch> Branches { get; set; } = null!;
     public DbSet<BranchVehicle> BranchesVehicles { get; set; } = null!;
-    public DbSet<Vehicle> Cars { get; set; } = null!;
+    public DbSet<Vehicle> Vehicles { get; set; } = null!;
     public DbSet<Engine> Engines { get; set; } = null!;
     public DbSet<Issue> Issues { get; set; } = null!;
     public DbSet<Worker> Workers { get; set; } = null!;
