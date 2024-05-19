@@ -1,6 +1,6 @@
 namespace Car_Mender.Domain.Entities;
 
-public class BranchVehicle
+public class BranchVehicle : BaseEntity
 {
     public Guid VehicleId { get; init; }
     public required Vehicle Vehicle { get; init; }
