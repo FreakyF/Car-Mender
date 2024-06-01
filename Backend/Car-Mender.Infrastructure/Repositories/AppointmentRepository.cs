@@ -1,8 +1,9 @@
 using Car_Mender.Domain.Entities;
 using Car_Mender.Domain.Repositories;
+using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace Car_Mender.Infrastructure.Persistence.DatabaseContext;
+namespace Car_Mender.Infrastructure.Repositories;
 
 public class AppointmentRepository(AppDbContext context) : IAppointmentRepository
 {
