@@ -4,5 +4,6 @@ public static class ErrorCodes
 {
 	public const string
 		ValidationError = "VALIDATION_ERROR",
-		Unexpected = "UNEXPECTED";
+		Unexpected = "UNEXPECTED",
+		InvalidId = "INVALID_ID";
 }

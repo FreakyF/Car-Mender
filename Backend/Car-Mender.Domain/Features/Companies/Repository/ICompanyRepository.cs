@@ -7,6 +7,7 @@ namespace Car_Mender.Domain.Features.Companies.Repository;
 public interface ICompanyRepository
 {
     Task<Result<Company>> GetCompanyByIdAsync(Guid id);
+    Task<Result<Company>> GetCompanyByIdAsNoTrackingAsync(Guid id);
     Task<Result<IEnumerable<Company>>> GetAllCompaniesAsync();
     Task<Result> CreateCompanyAsync(CreateCompanyDto dto, CancellationToken cancellationToken);
     Task<Result> UpdateCompanyAsync(Company company);

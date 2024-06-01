@@ -42,6 +42,8 @@ public sealed record Error(string Code, string? Description = null)
 {
 	public static readonly Error None = new(string.Empty);
 	public static readonly Error Unexpected = new(ErrorCodes.Unexpected, "An unexpected error occured");
+	public static readonly Error InvalidId = new(ErrorCodes.InvalidId, "Given id is invalid");
+
 	public static Error ValidationError(IEnumerable<string> errorMessages) =>
 		new(ErrorCodes.ValidationError, string.Join("; ", errorMessages));
 }
