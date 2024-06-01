@@ -13,4 +13,12 @@ public class AppDbContext(DbContextOptions options) : DbContext(options), IAppDb
     public DbSet<Engine> Engines { get; set; } = null!;
     public DbSet<Issue> Issues { get; set; } = null!;
     public DbSet<Worker> Workers { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Company>().OwnsOne(c => c.Address);
+        modelBuilder.Entity<Branch>().OwnsOne(b => b.Address);
+    }
 }
