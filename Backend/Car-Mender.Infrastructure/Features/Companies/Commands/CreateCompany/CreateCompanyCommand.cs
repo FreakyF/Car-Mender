@@ -1,8 +1,11 @@
+using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Models;
+using MediatR;
 
-namespace Car_Mender.Domain.Entities;
+namespace Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
 
-public class Company : BaseEntity
+// ReSharper disable once ClassNeverInstantiated.Global
+public record CreateCompanyCommand : IRequest<Result>
 {
     public required string Email { get; set; }
     public required string Name { get; set; }

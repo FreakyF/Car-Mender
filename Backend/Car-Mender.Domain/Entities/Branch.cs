@@ -1,3 +1,4 @@
+using Car_Mender.Domain.Features.Companies.Entities;
 using Car_Mender.Domain.Models;
 
 namespace Car_Mender.Domain.Entities;
