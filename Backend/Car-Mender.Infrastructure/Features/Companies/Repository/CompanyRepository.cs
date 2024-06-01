@@ -1,8 +1,6 @@
 using Car_Mender.Domain.Common;
-using Car_Mender.Domain.Entities;
 using Car_Mender.Domain.Features.Companies.DTOs;
 using Car_Mender.Domain.Features.Companies.Entities;
-using Car_Mender.Domain.Features.Companies.Errors;
 using Car_Mender.Domain.Features.Companies.Repository;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 

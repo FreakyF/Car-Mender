@@ -28,6 +28,7 @@ public class Program
         builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<InfrastructureAssemblyMarker>());
         builder.Services.AddValidatorsFromAssemblyContaining<InfrastructureAssemblyMarker>();
+        builder.Services.AddAutoMapper(typeof(InfrastructureAssemblyMarker));
 
         var app = builder.Build();
 

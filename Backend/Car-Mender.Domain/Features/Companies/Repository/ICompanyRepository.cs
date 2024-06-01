@@ -1,5 +1,4 @@
 using Car_Mender.Domain.Common;
-using Car_Mender.Domain.Entities;
 using Car_Mender.Domain.Features.Companies.DTOs;
 using Car_Mender.Domain.Features.Companies.Entities;
 
