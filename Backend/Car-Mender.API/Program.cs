@@ -2,6 +2,7 @@ using Car_Mender.Domain.Features.Companies.Repository;
 using Car_Mender.Infrastructure;
 using Car_Mender.Infrastructure.Features.Companies.Repository;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Car_Mender.API;
@@ -26,6 +27,7 @@ public class Program
         });
         builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<InfrastructureAssemblyMarker>());
+        builder.Services.AddValidatorsFromAssemblyContaining<InfrastructureAssemblyMarker>();
 
         var app = builder.Build();
 

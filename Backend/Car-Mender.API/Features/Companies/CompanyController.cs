@@ -1,3 +1,4 @@
+using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Companies.Errors;
 using Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
 using MediatR;
@@ -18,9 +19,10 @@ public class CompanyController(IMediator mediator) : ControllerBase
 			return NoContent();
 		}
 
-		return result.Error.code switch
+		return result.Error.Code switch
 		{
 			CompanyErrorCodes.CouldNotBeFound => NotFound(),
+			ErrorCodes.ValidationError => BadRequest(result.Error.Description),
 			_ => StatusCode(500)
 		};
 	}
