@@ -31,8 +31,8 @@ public class BranchVehicleRepository(AppDbContext context) : IBranchVehicleRepos
 
     public async Task DeleteBranchVehicleAsync(Guid id)
     {
-        var appointment = await GetBranchVehicleByIdAsync(id);
-        context.Set<BranchVehicle>().Remove(appointment);
+        var branchVehicle = await GetBranchVehicleByIdAsync(id);
+        context.Set<BranchVehicle>().Remove(branchVehicle);
         await context.SaveChangesAsync();
     }
 }
