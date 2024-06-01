@@ -1,6 +1,7 @@
 using AutoMapper;
 using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Companies.DTOs;
+using Car_Mender.Domain.Features.Companies.Entities;
 using Car_Mender.Domain.Features.Companies.Repository;
 using FluentValidation;
 using MediatR;
@@ -12,9 +13,9 @@ public class CreateCompanyCommandHandler(
 	ICompanyRepository companyRepository,
 	IValidator<CreateCompanyCommand> validator,
 	IMapper mapper
-) : IRequestHandler<CreateCompanyCommand, Result>
+) : IRequestHandler<CreateCompanyCommand, Result<Guid>>
 {
-	public async Task<Result> Handle(CreateCompanyCommand request, CancellationToken cancellationToken)
+	public async Task<Result<Guid>> Handle(CreateCompanyCommand request, CancellationToken cancellationToken)
 	{
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)
@@ -23,7 +24,7 @@ public class CreateCompanyCommandHandler(
 			return Error.ValidationError(errors);
 		}
 
-		var dto = mapper.Map<CreateCompanyDto>(request);
-		return await companyRepository.CreateCompanyAsync(dto, cancellationToken);
+		var companyEntity = mapper.Map<Company>(request);
+		return await companyRepository.CreateCompanyAsync(companyEntity, cancellationToken);
 	}
 }

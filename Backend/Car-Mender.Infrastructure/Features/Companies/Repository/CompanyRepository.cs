@@ -1,5 +1,4 @@
 using Car_Mender.Domain.Common;
-using Car_Mender.Domain.Features.Companies.DTOs;
 using Car_Mender.Domain.Features.Companies.Entities;
 using Car_Mender.Domain.Features.Companies.Errors;
 using Car_Mender.Domain.Features.Companies.Repository;
@@ -10,20 +9,20 @@ namespace Car_Mender.Infrastructure.Features.Companies.Repository;
 
 public class CompanyRepository(AppDbContext context) : ICompanyRepository
 {
-	public async Task<Result<Company>> GetCompanyByIdAsync(Guid id)
+	public async Task<Result<Company>> GetCompanyByIdAsync(Guid id, CancellationToken cancellationToken)
 	{
-		var company = await context.Companies.FirstOrDefaultAsync(c => c.Id == id);
+		var company = await context.Companies.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
 		return company is null
 			? CompanyErrors.CouldNotBeFound
 			: Result<Company>.Success(company);
 	}
 
-	public async Task<Result<Company>> GetCompanyByIdAsNoTrackingAsync(Guid id)
+	public async Task<Result<Company>> GetCompanyByIdAsNoTrackingAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var company = await context.Companies
 			.AsNoTracking()
-			.FirstOrDefaultAsync(c => c.Id == id);
+			.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
 		return company is null
 			? CompanyErrors.CouldNotBeFound
@@ -35,17 +34,8 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 		throw new NotImplementedException();
 	}
 
-	public async Task<Result> CreateCompanyAsync(CreateCompanyDto dto, CancellationToken cancellationToken)
+	public async Task<Result<Guid>> CreateCompanyAsync(Company company, CancellationToken cancellationToken)
 	{
-		var company = new Company
-		{
-			Email = dto.Email,
-			Name = dto.Name,
-			Address = dto.Address,
-			Phone = dto.Phone,
-			Nip = dto.Nip
-		};
-
 		try
 		{
 			await context.Companies.AddAsync(company, cancellationToken);
@@ -56,7 +46,7 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 			return Error.Unexpected;
 		}
 
-		return Result.Success();
+		return Result<Guid>.Success(company.Id);
 	}
 
 	public Task<Result> UpdateCompanyAsync(Company company)

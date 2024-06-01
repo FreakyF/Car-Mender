@@ -18,7 +18,7 @@ public class CompanyController(IMediator mediator) : ControllerBase
 		var result = await mediator.Send(command);
 		if (result.IsSuccess)
 		{
-			return NoContent();
+			return CreatedAtRoute("GetCompanyByIdRoute", new { id = result.Value }, result.Value);
 		}
 
 		return result.Error.Code switch
@@ -29,8 +29,8 @@ public class CompanyController(IMediator mediator) : ControllerBase
 		};
 	}
 
-	[HttpGet("{id:guid}")]
-	public async Task<ActionResult<GetCompanyDto>> GetCompanyAsync(Guid id)
+	[HttpGet("{id:guid}", Name = "GetCompanyByIdRoute")]
+	public async Task<ActionResult<GetCompanyDto>> GetCompanyById(Guid id)
 	{
 		var query = new GetCompanyQuery(id);
 		var getCompanyResult = await mediator.Send(query);

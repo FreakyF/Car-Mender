@@ -9,7 +9,7 @@ public class CompanyMappingProfile : Profile
 {
 	public CompanyMappingProfile()
 	{
-		CreateMap<CreateCompanyCommand, CreateCompanyDto>();
+		CreateMap<CreateCompanyCommand, Company>();
 		CreateMap<Company, GetCompanyDto>();
 	}
 }

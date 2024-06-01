@@ -5,7 +5,7 @@ using MediatR;
 namespace Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
 
 // ReSharper disable once ClassNeverInstantiated.Global
-public record CreateCompanyCommand : IRequest<Result>
+public record CreateCompanyCommand : IRequest<Result<Guid>>
 {
     public required string Email { get; set; }
     public required string Name { get; set; }

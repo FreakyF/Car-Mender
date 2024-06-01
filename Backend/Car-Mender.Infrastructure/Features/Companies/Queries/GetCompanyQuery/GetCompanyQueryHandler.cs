@@ -19,7 +19,7 @@ public class GetCompanyQueryHandler(
 			return Error.InvalidId;
 		}
 
-		var getCompanyResult = await repository.GetCompanyByIdAsNoTrackingAsync(request.Id);
+		var getCompanyResult = await repository.GetCompanyByIdAsNoTrackingAsync(request.Id, cancellationToken);
 		if (getCompanyResult.IsFailure)
 		{
 			return Result<GetCompanyDto>.Failure(getCompanyResult.Error);
