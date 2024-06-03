@@ -1,6 +1,5 @@
 using AutoMapper;
 using Car_Mender.Domain.Common;
-using Car_Mender.Domain.Features.Companies.DTOs;
 using Car_Mender.Domain.Features.Companies.Entities;
 using Car_Mender.Domain.Features.Companies.Repository;
 using FluentValidation;
