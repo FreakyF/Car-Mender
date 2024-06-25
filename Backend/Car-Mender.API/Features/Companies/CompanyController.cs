@@ -2,8 +2,10 @@ using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Companies.DTOs;
 using Car_Mender.Domain.Features.Companies.Errors;
 using Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
+using Car_Mender.Infrastructure.Features.Companies.Commands.UpdateCompany;
 using Car_Mender.Infrastructure.Features.Companies.Queries.GetCompanyQuery;
 using MediatR;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Car_Mender.API.Features.Companies;
@@ -13,7 +15,7 @@ namespace Car_Mender.API.Features.Companies;
 public class CompanyController(IMediator mediator) : ControllerBase
 {
 	[HttpPost]
-	public async Task<IActionResult> CreateCompanyAsync(CreateCompanyCommand command)
+	public async Task<IActionResult> CreateCompanyAsync([FromBody] CreateCompanyCommand command)
 	{
 		var result = await mediator.Send(command);
 		if (result.IsSuccess)
@@ -43,6 +45,30 @@ public class CompanyController(IMediator mediator) : ControllerBase
 		{
 			ErrorCodes.InvalidId => BadRequest(getCompanyResult.Error.Description),
 			CompanyErrorCodes.CouldNotBeFound => NotFound(getCompanyResult.Error.Description),
+			_ => StatusCode(500)
+		};
+	}
+
+	[HttpPatch("{id:guid}")]
+	public async Task<ActionResult<UpdateCompanyDto>> UpdateCompanyById(Guid id,
+		[FromBody] JsonPatchDocument<UpdateCompanyDto> patchDocument)
+	{
+		if (patchDocument is null)
+		{
+			return BadRequest("Invalid Json Patch Document");
+		}
+
+		var query = new UpdateCompanyCommand(id, patchDocument);
+		var updateCompanyResult = await mediator.Send(query);
+		if (updateCompanyResult.IsSuccess)
+		{
+			return NoContent();
+		}
+
+		return updateCompanyResult.Error.Code switch
+		{
+			ErrorCodes.InvalidId => BadRequest(updateCompanyResult.Error.Description),
+			CompanyErrorCodes.CouldNotBeFound => NotFound(updateCompanyResult.Error.Description),
 			_ => StatusCode(500)
 		};
 	}

@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car-Mender.Domain", "Car-Me
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car-Mender.Infrastructure", "Car-Mender.Infrastructure\Car-Mender.Infrastructure.csproj", "{24ACA19F-9688-4BF1-AF23-C7F5330AE439}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F4F6F610-211F-46E1-8105-077F52C48128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car-Mender.Infrastructure.Tests", "Car-Mender.Infrastructure.Tests\Car-Mender.Infrastructure.Tests.csproj", "{62795F02-FA13-40FE-9E9F-9C6768650A07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car-Mender.API.Tests", "Car-Mender.API.Tests\Car-Mender.API.Tests.csproj", "{103B5EDC-E307-41A9-985B-2AF5CE9E572A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,5 +35,17 @@ Global
 		{24ACA19F-9688-4BF1-AF23-C7F5330AE439}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24ACA19F-9688-4BF1-AF23-C7F5330AE439}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24ACA19F-9688-4BF1-AF23-C7F5330AE439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62795F02-FA13-40FE-9E9F-9C6768650A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62795F02-FA13-40FE-9E9F-9C6768650A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62795F02-FA13-40FE-9E9F-9C6768650A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62795F02-FA13-40FE-9E9F-9C6768650A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{103B5EDC-E307-41A9-985B-2AF5CE9E572A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{103B5EDC-E307-41A9-985B-2AF5CE9E572A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{103B5EDC-E307-41A9-985B-2AF5CE9E572A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{103B5EDC-E307-41A9-985B-2AF5CE9E572A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{62795F02-FA13-40FE-9E9F-9C6768650A07} = {F4F6F610-211F-46E1-8105-077F52C48128}
+		{103B5EDC-E307-41A9-985B-2AF5CE9E572A} = {F4F6F610-211F-46E1-8105-077F52C48128}
 	EndGlobalSection
 EndGlobal

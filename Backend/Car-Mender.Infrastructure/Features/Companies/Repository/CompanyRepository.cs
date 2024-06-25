@@ -49,7 +49,7 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 		return Result<Guid>.Success(company.Id);
 	}
 
-	public Task<Result> UpdateCompanyAsync(Company company)
+	public Task<Result> UpdateCompanyAsync(Company company, CancellationToken cancellationToken)
 	{
 		throw new NotImplementedException();
 	}
@@ -57,5 +57,17 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 	public Task<Result> DeleteCompanyAsync(Guid id)
 	{
 		throw new NotImplementedException();
+	}
+
+	public async Task<Result<bool>> ExistsAsync(Guid id)
+	{
+		var exists = await context.Companies.AnyAsync(c => c.Id == id);
+		return Result<bool>.Success(exists);
+	}
+
+	public async Task<Result<int>> SaveChangesAsync(CancellationToken cancellationToken)
+	{
+		var writtenEntities = await context.SaveChangesAsync(cancellationToken);
+		return Result<int>.Success(writtenEntities);
 	}
 }
