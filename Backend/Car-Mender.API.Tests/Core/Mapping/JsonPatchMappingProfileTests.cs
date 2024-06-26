@@ -1,4 +1,5 @@
 using AutoMapper;
+using Car_Mender.API.Core.Mapping;
 using Car_Mender.API.Features.Swagger;
 
 namespace Car_Mender.API.Tests.Core.Mapping;

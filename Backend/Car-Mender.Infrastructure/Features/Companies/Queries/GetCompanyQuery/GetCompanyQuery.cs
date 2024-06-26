@@ -1,5 +1,6 @@
 using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Companies.DTOs;
+using Car_Mender.Domain.Features.Companies.DTOs.Company;
 using MediatR;
 
 namespace Car_Mender.Infrastructure.Features.Companies.Queries.GetCompanyQuery;

@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 
-namespace Car_Mender.API.Features.Swagger;
+namespace Car_Mender.API.Core.Mapping;
 
 public class JsonPatchMappingProfile : Profile
 {

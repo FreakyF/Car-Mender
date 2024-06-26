@@ -1,5 +1,6 @@
 using AutoMapper;
 using Car_Mender.Domain.Features.Companies.DTOs;
+using Car_Mender.Domain.Features.Companies.DTOs.Company;
 using Car_Mender.Domain.Features.Companies.Entities;
 using Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
 
