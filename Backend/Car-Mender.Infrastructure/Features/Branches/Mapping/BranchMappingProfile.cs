@@ -13,5 +13,6 @@ public class BranchMappingProfile : Profile
 			.ForMember(dest => dest.Id, opt => opt.Ignore())
 			.ForMember(dest => dest.Company, opt => opt.Ignore());
 		CreateMap<Branch, GetBranchDto>();
+		CreateMap<Branch, UpdateBranchDto>();
 	}
 }
