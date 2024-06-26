@@ -54,9 +54,18 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 		throw new NotImplementedException();
 	}
 
-	public Task<Result> DeleteCompanyAsync(Guid id)
+	public async Task<Result> DeleteCompanyAsync(Guid id, CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var getCompanyResult = await GetCompanyByIdAsync(id, cancellationToken);
+		if (getCompanyResult.IsFailure)
+		{
+			return Result.Failure(getCompanyResult.Error);
+		}
+
+		var company = getCompanyResult.Value;
+		context.Companies.Remove(company!);
+		await context.SaveChangesAsync(cancellationToken);
+		return Result.Success();
 	}
 
 	public async Task<Result<bool>> ExistsAsync(Guid id)

@@ -2,6 +2,7 @@ using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Companies.DTOs;
 using Car_Mender.Domain.Features.Companies.Errors;
 using Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
+using Car_Mender.Infrastructure.Features.Companies.Commands.DeleteCompany;
 using Car_Mender.Infrastructure.Features.Companies.Commands.UpdateCompany;
 using Car_Mender.Infrastructure.Features.Companies.Queries.GetCompanyQuery;
 using MediatR;
@@ -50,7 +51,7 @@ public class CompanyController(IMediator mediator) : ControllerBase
 	}
 
 	[HttpPatch("{id:guid}")]
-	public async Task<ActionResult<UpdateCompanyDto>> UpdateCompanyById(Guid id,
+	public async Task<IActionResult> UpdateCompanyById(Guid id,
 		[FromBody] JsonPatchDocument<UpdateCompanyDto> patchDocument)
 	{
 		if (patchDocument is null)
@@ -58,8 +59,8 @@ public class CompanyController(IMediator mediator) : ControllerBase
 			return BadRequest("Invalid Json Patch Document");
 		}
 
-		var query = new UpdateCompanyCommand(id, patchDocument);
-		var updateCompanyResult = await mediator.Send(query);
+		var command = new UpdateCompanyCommand(id, patchDocument);
+		var updateCompanyResult = await mediator.Send(command);
 		if (updateCompanyResult.IsSuccess)
 		{
 			return NoContent();
@@ -69,7 +70,24 @@ public class CompanyController(IMediator mediator) : ControllerBase
 		{
 			ErrorCodes.InvalidId => BadRequest(updateCompanyResult.Error.Description),
 			CompanyErrorCodes.CouldNotBeFound => NotFound(updateCompanyResult.Error.Description),
-			_ => StatusCode(500)
+			_ => StatusCode(500, updateCompanyResult.Error.Description)
+		};
+	}
+
+	[HttpDelete("{id:guid}")]
+	public async Task<IActionResult> DeleteCompanyById(Guid id)
+	{
+		var command = new DeleteCompanyCommand(id);
+		var deleteCompanyResult = await mediator.Send(command);
+		if (deleteCompanyResult.IsSuccess)
+		{
+			return NoContent();
+		}
+
+		return deleteCompanyResult.Error.Code switch
+		{
+			CompanyErrorCodes.CouldNotBeFound => NotFound(deleteCompanyResult.Error.Description),
+			_ => StatusCode(500, deleteCompanyResult.Error.Description)
 		};
 	}
 }
