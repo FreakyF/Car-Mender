@@ -1,3 +1,5 @@
+using Car_Mender.Domain.Features.Branches.Entities;
+
 namespace Car_Mender.Domain.Entities;
 
 public class Worker : BaseEntity

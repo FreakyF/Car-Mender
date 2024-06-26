@@ -1,4 +1,5 @@
 using Car_Mender.Domain.Entities;
+using Car_Mender.Domain.Features.Branches.Entities;
 using Car_Mender.Domain.Features.Companies.Entities;
 using Microsoft.EntityFrameworkCore;
 
