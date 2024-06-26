@@ -59,13 +59,15 @@ public class BranchRepository(AppDbContext context) : IBranchRepository
 		throw new NotImplementedException();
 	}
 
-	public Task<Result<bool>> ExistsAsync(Guid guid)
+	public async Task<Result<bool>> ExistsAsync(Guid id)
 	{
-		throw new NotImplementedException();
+		var exists = await context.Branches.AnyAsync(b => b.Id == id);
+		return Result<bool>.Success(exists);
 	}
 
-	public Task<Result<int>> SaveChangesAsync(CancellationToken cancellationToken)
+	public async Task<Result<int>> SaveChangesAsync(CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var writtenEntities = await context.SaveChangesAsync(cancellationToken);
+		return Result<int>.Success(writtenEntities);
 	}
 }
