@@ -1,6 +1,6 @@
 using Car_Mender.Domain.Models;
 
-namespace Car_Mender.Domain.Features.Companies.DTOs.Company;
+namespace Car_Mender.Domain.Features.Companies.DTOs;
 
 public class GetCompanyDto
 {

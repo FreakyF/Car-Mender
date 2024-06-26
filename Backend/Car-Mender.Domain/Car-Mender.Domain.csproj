@@ -13,4 +13,8 @@
       <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="8.0.5" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Companies\DTOs\Company\" />
+    </ItemGroup>
+
 </Project>

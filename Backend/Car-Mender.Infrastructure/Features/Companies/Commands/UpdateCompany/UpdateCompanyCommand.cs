@@ -1,6 +1,5 @@
 using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Companies.DTOs;
-using Car_Mender.Domain.Features.Companies.DTOs.Company;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 
