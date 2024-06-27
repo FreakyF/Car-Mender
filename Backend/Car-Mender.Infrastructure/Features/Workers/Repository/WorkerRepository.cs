@@ -70,7 +70,7 @@ public class WorkerRepository(AppDbContext context) : IWorkerRepository
 
 	public async Task<Result<bool>> ExistsAsync(Guid id, CancellationToken cancellationToken)
 	{
-		var exists = await context.Workers.AnyAsync(w => w.Id == id);
+		var exists = await context.Workers.AnyAsync(w => w.Id == id, cancellationToken);
 		return Result<bool>.Success(exists);
 	}
 
