@@ -27,10 +27,4 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Features\Engines\Commands\" />
-      <Folder Include="Features\Engines\Mapping\" />
-      <Folder Include="Features\Engines\Queries\" />
-    </ItemGroup>
-
 </Project>

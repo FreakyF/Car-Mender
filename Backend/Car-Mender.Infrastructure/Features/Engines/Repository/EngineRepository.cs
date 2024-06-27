@@ -5,7 +5,7 @@ using Car_Mender.Domain.Features.Engines.Repository;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace Car_Mender.Infrastructure.Repositories;
+namespace Car_Mender.Infrastructure.Features.Engines.Repository;
 
 public class EngineRepository(AppDbContext context) : IEngineRepository
 {
