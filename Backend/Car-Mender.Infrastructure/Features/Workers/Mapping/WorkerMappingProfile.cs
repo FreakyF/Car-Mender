@@ -14,5 +14,6 @@ public class WorkerMappingProfile : Profile
 			.ForMember(dest => dest.Id, opt => opt.Ignore())
 			.ForMember(dest => dest.Branch, opt => opt.Ignore());
 		CreateMap<Worker, GetWorkerDto>();
+		CreateMap<Worker, UpdateWorkerDto>();
 	}
 }
