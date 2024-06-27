@@ -3,6 +3,7 @@ using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Branches.Errors;
 using Car_Mender.Domain.Features.Branches.Repository;
 using Car_Mender.Domain.Features.Workers.Entities;
+using Car_Mender.Domain.Features.Workers.Errors;
 using Car_Mender.Domain.Features.Workers.Repository;
 using FluentValidation;
 using MediatR;
@@ -19,11 +20,8 @@ public class UpdateWorkerCommandHandler(
 {
 	public async Task<Result> Handle(UpdateWorkerCommand request, CancellationToken cancellationToken)
 	{
-		var branchExistsResult = await branchRepository.ExistsAsync(request.Id);
-		if (branchExistsResult.IsFailure) return Result.Failure(branchExistsResult.Error);
-
-		var branchExists = branchExistsResult.Value;
-		if (branchExists) return BranchErrors.CouldNotBeFound;
+		var workerExistResult = await workerRepository.ExistsAsync(request.Id);
+		if (!workerExistResult.Value) return WorkerErrors.CouldNotBeFound;
 
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)
