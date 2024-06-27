@@ -3,6 +3,7 @@ using Car_Mender.Domain.Features.Branches.DTOs;
 using Car_Mender.Domain.Features.Branches.Errors;
 using Car_Mender.Domain.Features.Companies.Errors;
 using Car_Mender.Infrastructure.Features.Branches.Commands.CreateBranch;
+using Car_Mender.Infrastructure.Features.Branches.Commands.DeleteBranch;
 using Car_Mender.Infrastructure.Features.Branches.Commands.UpdateBranch;
 using Car_Mender.Infrastructure.Features.Branches.Queries;
 using MediatR;
@@ -71,6 +72,23 @@ public class BranchController(IMediator mediator) : ControllerBase
 			ErrorCodes.InvalidId => BadRequest(updateBranchResult.Error.Description),
 			CompanyErrorCodes.CouldNotBeFound => NotFound(updateBranchResult.Error.Description),
 			_ => StatusCode(500, updateBranchResult.Error.Description)
+		};
+	}
+
+	[HttpDelete("{id:guid}")]
+	public async Task<IActionResult> DeleteCompanyById(Guid id)
+	{
+		var command = new DeleteBranchCommand(id);
+		var deleteBranchResult = await mediator.Send(command);
+		if (deleteBranchResult.IsSuccess)
+		{
+			return NoContent();
+		}
+
+		return deleteBranchResult.Error.Code switch
+		{
+			BranchErrorCodes.CouldNotBeFound => NotFound(deleteBranchResult.Error.Description),
+			_ => StatusCode(500, deleteBranchResult.Error.Description)
 		};
 	}
 }
