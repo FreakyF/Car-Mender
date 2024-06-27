@@ -65,9 +65,9 @@ public class WorkerRepository(AppDbContext context) : IWorkerRepository
 		return Result.Success();
 	}
 
-	public async Task<Result<bool>> ExistsAsync(Guid id, CancellationToken cancellationToken)
+	public async Task<Result<bool>> ExistsAsync(Guid id)
 	{
-		var exists = await context.Workers.AnyAsync(w => w.Id == id, cancellationToken);
+		var exists = await context.Workers.AnyAsync(w => w.Id == id);
 		return Result<bool>.Success(exists);
 	}
 
