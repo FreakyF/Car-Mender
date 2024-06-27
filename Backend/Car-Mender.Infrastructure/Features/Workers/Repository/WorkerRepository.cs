@@ -57,10 +57,7 @@ public class WorkerRepository(AppDbContext context) : IWorkerRepository
 	public async Task<Result> DeleteWorkerAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getWorkerResult = await GetWorkerByIdAsync(id, cancellationToken);
-		if (getWorkerResult.IsFailure)
-		{
-			return Result.Failure(getWorkerResult.Error);
-		}
+		if (getWorkerResult.IsFailure) return Result.Failure(getWorkerResult.Error);
 
 		var worker = getWorkerResult.Value;
 		context.Workers.Remove(worker!);

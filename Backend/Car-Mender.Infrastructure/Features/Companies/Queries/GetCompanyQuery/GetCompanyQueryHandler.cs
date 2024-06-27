@@ -14,16 +14,10 @@ public class GetCompanyQueryHandler(
 {
 	public async Task<Result<GetCompanyDto>> Handle(GetCompanyQuery request, CancellationToken cancellationToken)
 	{
-		if (request.Id.Equals(Guid.Empty))
-		{
-			return Error.InvalidId;
-		}
+		if (request.Id.Equals(Guid.Empty)) return Error.InvalidId;
 
 		var getCompanyResult = await repository.GetCompanyByIdAsNoTrackingAsync(request.Id, cancellationToken);
-		if (getCompanyResult.IsFailure)
-		{
-			return Result<GetCompanyDto>.Failure(getCompanyResult.Error);
-		}
+		if (getCompanyResult.IsFailure) return Result<GetCompanyDto>.Failure(getCompanyResult.Error);
 
 		var companyDto = mapper.Map<GetCompanyDto>(getCompanyResult.Value);
 		return Result<GetCompanyDto>.Success(companyDto);

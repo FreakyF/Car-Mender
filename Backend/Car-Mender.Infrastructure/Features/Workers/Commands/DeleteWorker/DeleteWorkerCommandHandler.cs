@@ -12,17 +12,12 @@ public class DeleteWorkerCommandHandler(
 {
 	public async Task<Result> Handle(DeleteWorkerCommand request, CancellationToken cancellationToken)
 	{
-		if (request.Id.Equals(Guid.Empty))
-		{
-			return Error.InvalidId;
-		}
+		if (request.Id.Equals(Guid.Empty)) return Error.InvalidId;
 
 		var deleteWorkerResult = await workerRepository.DeleteWorkerAsync(request.Id, cancellationToken);
 		if (deleteWorkerResult.IsFailure)
-		{
 			logger.LogError("Could not remove worker with id: {Id}: {Message}", request.Id,
 				deleteWorkerResult.Error.Description);
-		}
 
 		return deleteWorkerResult;
 	}

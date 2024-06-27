@@ -57,10 +57,7 @@ public class EngineRepository(AppDbContext context) : IEngineRepository
 	public async Task<Result> DeleteEngineAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getEngineResult = await GetEngineByIdAsync(id, cancellationToken);
-		if (getEngineResult.IsFailure)
-		{
-			return Result.Failure(getEngineResult.Error);
-		}
+		if (getEngineResult.IsFailure) return Result.Failure(getEngineResult.Error);
 
 		var engine = getEngineResult.Value;
 		context.Engines.Remove(engine!);

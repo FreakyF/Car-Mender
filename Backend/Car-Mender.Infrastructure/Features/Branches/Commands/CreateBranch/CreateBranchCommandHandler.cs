@@ -19,16 +19,10 @@ public class CreateBranchCommandHandler(
 	public async Task<Result<Guid>> Handle(CreateBranchCommand request, CancellationToken cancellationToken)
 	{
 		var companyExistsResult = await companyRepository.ExistsAsync(request.CompanyId);
-		if (companyExistsResult.IsFailure)
-		{
-			return Result<Guid>.Failure(companyExistsResult.Error);
-		}
+		if (companyExistsResult.IsFailure) return Result<Guid>.Failure(companyExistsResult.Error);
 
 		var companyExists = companyExistsResult.Value;
-		if (!companyExists)
-		{
-			return CompanyErrors.CouldNotBeFound;
-		}
+		if (!companyExists) return CompanyErrors.CouldNotBeFound;
 
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)

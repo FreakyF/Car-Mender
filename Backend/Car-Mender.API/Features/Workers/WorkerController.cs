@@ -19,10 +19,7 @@ public class WorkerController(IMediator mediator) : ControllerBase
 	public async Task<IActionResult> CreateWorkerAsync([FromBody] CreateWorkerCommand command)
 	{
 		var result = await mediator.Send(command);
-		if (result.IsSuccess)
-		{
-			return CreatedAtRoute("GetWorkerByIdRoute", new { id = result.Value }, result.Value);
-		}
+		if (result.IsSuccess) return CreatedAtRoute("GetWorkerByIdRoute", new { id = result.Value }, result.Value);
 
 		return result.Error.Code switch
 		{
@@ -37,10 +34,7 @@ public class WorkerController(IMediator mediator) : ControllerBase
 	{
 		var query = new GetWorkerQuery(id);
 		var getWorkerResult = await mediator.Send(query);
-		if (getWorkerResult.IsSuccess)
-		{
-			return Ok(getWorkerResult.Value);
-		}
+		if (getWorkerResult.IsSuccess) return Ok(getWorkerResult.Value);
 
 		return getWorkerResult.Error.Code switch
 		{
@@ -54,17 +48,11 @@ public class WorkerController(IMediator mediator) : ControllerBase
 	public async Task<IActionResult> UpdateWorkerById(Guid id,
 		[FromBody] JsonPatchDocument<UpdateWorkerDto> patchDocument)
 	{
-		if (patchDocument is null)
-		{
-			return BadRequest("Invalid Json Patch Document");
-		}
+		if (patchDocument is null) return BadRequest("Invalid Json Patch Document");
 
 		var command = new UpdateWorkerCommand(id, patchDocument);
 		var updateWorkerResult = await mediator.Send(command);
-		if (updateWorkerResult.IsSuccess)
-		{
-			return NoContent();
-		}
+		if (updateWorkerResult.IsSuccess) return NoContent();
 
 		return updateWorkerResult.Error.Code switch
 		{
@@ -79,10 +67,7 @@ public class WorkerController(IMediator mediator) : ControllerBase
 	{
 		var command = new DeleteWorkerCommand(id);
 		var deleteWorkerResult = await mediator.Send(command);
-		if (deleteWorkerResult.IsSuccess)
-		{
-			return NoContent();
-		}
+		if (deleteWorkerResult.IsSuccess) return NoContent();
 
 		return deleteWorkerResult.Error.Code switch
 		{

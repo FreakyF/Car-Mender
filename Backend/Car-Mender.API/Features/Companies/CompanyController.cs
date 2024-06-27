@@ -19,10 +19,7 @@ public class CompanyController(IMediator mediator) : ControllerBase
 	public async Task<IActionResult> CreateCompanyAsync([FromBody] CreateCompanyCommand command)
 	{
 		var result = await mediator.Send(command);
-		if (result.IsSuccess)
-		{
-			return CreatedAtRoute("GetCompanyByIdRoute", new { id = result.Value }, result.Value);
-		}
+		if (result.IsSuccess) return CreatedAtRoute("GetCompanyByIdRoute", new { id = result.Value }, result.Value);
 
 		return result.Error.Code switch
 		{
@@ -37,10 +34,7 @@ public class CompanyController(IMediator mediator) : ControllerBase
 	{
 		var query = new GetCompanyQuery(id);
 		var getCompanyResult = await mediator.Send(query);
-		if (getCompanyResult.IsSuccess)
-		{
-			return Ok(getCompanyResult.Value);
-		}
+		if (getCompanyResult.IsSuccess) return Ok(getCompanyResult.Value);
 
 		return getCompanyResult.Error.Code switch
 		{
@@ -54,17 +48,11 @@ public class CompanyController(IMediator mediator) : ControllerBase
 	public async Task<IActionResult> UpdateCompanyById(Guid id,
 		[FromBody] JsonPatchDocument<UpdateCompanyDto> patchDocument)
 	{
-		if (patchDocument is null)
-		{
-			return BadRequest("Invalid Json Patch Document");
-		}
+		if (patchDocument is null) return BadRequest("Invalid Json Patch Document");
 
 		var command = new UpdateCompanyCommand(id, patchDocument);
 		var updateCompanyResult = await mediator.Send(command);
-		if (updateCompanyResult.IsSuccess)
-		{
-			return NoContent();
-		}
+		if (updateCompanyResult.IsSuccess) return NoContent();
 
 		return updateCompanyResult.Error.Code switch
 		{
@@ -79,10 +67,7 @@ public class CompanyController(IMediator mediator) : ControllerBase
 	{
 		var command = new DeleteCompanyCommand(id);
 		var deleteCompanyResult = await mediator.Send(command);
-		if (deleteCompanyResult.IsSuccess)
-		{
-			return NoContent();
-		}
+		if (deleteCompanyResult.IsSuccess) return NoContent();
 
 		return deleteCompanyResult.Error.Code switch
 		{

@@ -57,10 +57,7 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 	public async Task<Result> DeleteCompanyAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getCompanyResult = await GetCompanyByIdAsync(id, cancellationToken);
-		if (getCompanyResult.IsFailure)
-		{
-			return Result.Failure(getCompanyResult.Error);
-		}
+		if (getCompanyResult.IsFailure) return Result.Failure(getCompanyResult.Error);
 
 		var company = getCompanyResult.Value;
 		context.Companies.Remove(company!);

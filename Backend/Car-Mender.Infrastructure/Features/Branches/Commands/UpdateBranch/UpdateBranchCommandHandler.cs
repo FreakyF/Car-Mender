@@ -18,10 +18,7 @@ public class UpdateBranchCommandHandler(
 	public async Task<Result> Handle(UpdateBranchCommand request, CancellationToken cancellationToken)
 	{
 		var branchExistsResult = await branchRepository.ExistsAsync(request.Id);
-		if (!branchExistsResult.Value)
-		{
-			return BranchErrors.CouldNotBeFound;
-		}
+		if (!branchExistsResult.Value) return BranchErrors.CouldNotBeFound;
 
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)

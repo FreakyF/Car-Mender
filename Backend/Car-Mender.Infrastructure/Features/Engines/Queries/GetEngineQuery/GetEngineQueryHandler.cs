@@ -13,16 +13,10 @@ public class GetEngineQueryHandler(
 {
 	public async Task<Result<GetEngineDto>> Handle(GetEngineQuery request, CancellationToken cancellationToken)
 	{
-		if (request.Id.Equals(Guid.Empty))
-		{
-			return Error.InvalidId;
-		}
+		if (request.Id.Equals(Guid.Empty)) return Error.InvalidId;
 
 		var getEngineResult = await repository.GetEngineByIdNoTrackingAsync(request.Id, cancellationToken);
-		if (getEngineResult.IsFailure)
-		{
-			return Result<GetEngineDto>.Failure(getEngineResult.Error);
-		}
+		if (getEngineResult.IsFailure) return Result<GetEngineDto>.Failure(getEngineResult.Error);
 
 		var workerDto = mapper.Map<GetEngineDto>(getEngineResult.Value);
 		return Result<GetEngineDto>.Success(workerDto);

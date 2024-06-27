@@ -1,4 +1,3 @@
-using System.Data;
 using Car_Mender.Domain.Features.Engines.Entities;
 using FluentValidation;
 

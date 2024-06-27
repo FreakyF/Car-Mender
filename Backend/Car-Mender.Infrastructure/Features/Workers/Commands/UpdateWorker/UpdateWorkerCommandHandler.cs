@@ -20,16 +20,10 @@ public class UpdateWorkerCommandHandler(
 	public async Task<Result> Handle(UpdateWorkerCommand request, CancellationToken cancellationToken)
 	{
 		var branchExistsResult = await branchRepository.ExistsAsync(request.Id);
-		if (branchExistsResult.IsFailure)
-		{
-			return Result.Failure(branchExistsResult.Error);
-		}
+		if (branchExistsResult.IsFailure) return Result.Failure(branchExistsResult.Error);
 
 		var branchExists = branchExistsResult.Value;
-		if (branchExists)
-		{
-			return BranchErrors.CouldNotBeFound;
-		}
+		if (branchExists) return BranchErrors.CouldNotBeFound;
 
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)

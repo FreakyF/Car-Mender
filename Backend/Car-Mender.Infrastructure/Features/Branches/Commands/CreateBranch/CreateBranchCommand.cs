@@ -1,5 +1,4 @@
 using Car_Mender.Domain.Common;
-using Car_Mender.Domain.Features.Companies.Entities;
 using Car_Mender.Domain.Models;
 using MediatR;
 

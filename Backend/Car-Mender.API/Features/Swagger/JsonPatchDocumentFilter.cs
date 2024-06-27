@@ -5,6 +5,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Car_Mender.API.Features.Swagger;
 
+// ReSharper disable once ClassNeverInstantiated.Global
 public class JsonPatchDocumentFilter : IOperationFilter
 {
 	public void Apply(OpenApiOperation operation, OperationFilterContext context)
@@ -12,15 +13,9 @@ public class JsonPatchDocumentFilter : IOperationFilter
 		var isJsonPatchOperation = context.MethodInfo.GetCustomAttributes(true)
 			.OfType<HttpPatchAttribute>().Any();
 
-		if (!isJsonPatchOperation)
-		{
-			return;
-		}
+		if (!isJsonPatchOperation) return;
 
-		if (operation.RequestBody == null)
-		{
-			return;
-		}
+		if (operation.RequestBody == null) return;
 
 		var patchDocumentType = context.MethodInfo.GetParameters()
 			.FirstOrDefault(p =>
@@ -28,10 +23,7 @@ public class JsonPatchDocumentFilter : IOperationFilter
 				p.ParameterType.GetGenericTypeDefinition() == typeof(JsonPatchDocument<>))
 			?.ParameterType;
 
-		if (patchDocumentType == null)
-		{
-			return;
-		}
+		if (patchDocumentType == null) return;
 
 		operation.RequestBody.Content["application/json-patch+json"] = new OpenApiMediaType
 		{

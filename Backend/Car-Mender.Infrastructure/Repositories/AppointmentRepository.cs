@@ -7,28 +7,28 @@ namespace Car_Mender.Infrastructure.Repositories;
 
 public class AppointmentRepository(AppDbContext context) : IAppointmentRepository
 {
-    public Task<Result<Appointment>> GetAppointmentByIdAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+	public Task<Result<Appointment>> GetAppointmentByIdAsync(Guid id)
+	{
+		throw new NotImplementedException();
+	}
 
-    public Task<IEnumerable<Appointment>> GetAllAppointmentsAsync()
-    {
-        throw new NotImplementedException();
-    }
+	public Task<IEnumerable<Appointment>> GetAllAppointmentsAsync()
+	{
+		throw new NotImplementedException();
+	}
 
-    public Task AddAppointmentAsync(Appointment appointment)
-    {
-        throw new NotImplementedException();
-    }
+	public Task AddAppointmentAsync(Appointment appointment)
+	{
+		throw new NotImplementedException();
+	}
 
-    public Task UpdateAppointmentAsync(Appointment appointment)
-    {
-        throw new NotImplementedException();
-    }
+	public Task UpdateAppointmentAsync(Appointment appointment)
+	{
+		throw new NotImplementedException();
+	}
 
-    public Task DeleteAppointmentAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+	public Task DeleteAppointmentAsync(Guid id)
+	{
+		throw new NotImplementedException();
+	}
 }

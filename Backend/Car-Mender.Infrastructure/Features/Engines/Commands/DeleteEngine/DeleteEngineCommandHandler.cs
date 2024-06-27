@@ -13,17 +13,12 @@ public class DeleteEngineCommandHandler(
 {
 	public async Task<Result> Handle(DeleteEngineCommand request, CancellationToken cancellationToken)
 	{
-		if (request.Id.Equals(Guid.Empty))
-		{
-			return Error.InvalidId;
-		}
+		if (request.Id.Equals(Guid.Empty)) return Error.InvalidId;
 
 		var deleteEngineResult = await engineRepository.DeleteEngineAsync(request.Id, cancellationToken);
 		if (deleteEngineResult.IsFailure)
-		{
 			logger.LogError("Could not remove engine with id: {Id}: {Message}", request.Id,
 				deleteEngineResult.Error.Description);
-		}
 
 		return deleteEngineResult;
 	}

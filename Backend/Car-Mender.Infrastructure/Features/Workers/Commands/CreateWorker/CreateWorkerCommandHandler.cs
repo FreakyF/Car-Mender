@@ -19,16 +19,10 @@ public class CreateWorkerCommandHandler(
 	public async Task<Result<Guid>> Handle(CreateWorkerCommand request, CancellationToken cancellationToken)
 	{
 		var branchExistsResult = await branchRepository.ExistsAsync(request.BranchId);
-		if (branchExistsResult.IsFailure)
-		{
-			return Result<Guid>.Failure(branchExistsResult.Error);
-		}
+		if (branchExistsResult.IsFailure) return Result<Guid>.Failure(branchExistsResult.Error);
 
 		var branchExists = branchExistsResult.Value;
-		if (!branchExists)
-		{
-			return BranchErrors.CouldNotBeFound;
-		}
+		if (!branchExists) return BranchErrors.CouldNotBeFound;
 
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)

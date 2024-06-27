@@ -12,17 +12,12 @@ public class DeleteCompanyCommandHandler(
 {
 	public async Task<Result> Handle(DeleteCompanyCommand request, CancellationToken cancellationToken)
 	{
-		if (request.Id.Equals(Guid.Empty))
-		{
-			return Error.InvalidId;
-		}
-		
+		if (request.Id.Equals(Guid.Empty)) return Error.InvalidId;
+
 		var deleteCompanyResult = await companyRepository.DeleteCompanyAsync(request.Id, cancellationToken);
 		if (deleteCompanyResult.IsFailure)
-		{
 			logger.LogError("Could not remove company with id: {Id}: {Message}", request.Id,
 				deleteCompanyResult.Error.Description);
-		}
 
 		return deleteCompanyResult;
 	}

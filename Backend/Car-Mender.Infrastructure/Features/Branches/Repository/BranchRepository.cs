@@ -57,10 +57,7 @@ public class BranchRepository(AppDbContext context) : IBranchRepository
 	public async Task<Result> DeleteBranchAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getBranchResult = await GetBranchByIdAsync(id, cancellationToken);
-		if (getBranchResult.IsFailure)
-		{
-			return Result.Failure(getBranchResult.Error);
-		}
+		if (getBranchResult.IsFailure) return Result.Failure(getBranchResult.Error);
 
 		var branch = getBranchResult.Value;
 		context.Branches.Remove(branch!);

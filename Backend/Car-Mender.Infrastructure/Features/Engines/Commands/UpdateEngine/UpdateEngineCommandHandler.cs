@@ -18,10 +18,7 @@ public class UpdateEngineCommandHandler(
 	public async Task<Result> Handle(UpdateEngineCommand request, CancellationToken cancellationToken)
 	{
 		var engineExistsResult = await engineRepository.ExistsAsync(request.Id);
-		if (!engineExistsResult.Value)
-		{
-			return EngineErrors.CouldNotBeFound;
-		}
+		if (!engineExistsResult.Value) return EngineErrors.CouldNotBeFound;
 
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)

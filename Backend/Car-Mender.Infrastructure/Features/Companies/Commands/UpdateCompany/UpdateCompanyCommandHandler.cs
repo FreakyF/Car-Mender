@@ -18,10 +18,7 @@ public class UpdateCompanyCommandHandler(
 	public async Task<Result> Handle(UpdateCompanyCommand request, CancellationToken cancellationToken)
 	{
 		var companyExistsResult = await companyRepository.ExistsAsync(request.Id);
-		if (!companyExistsResult.Value)
-		{
-			return CompanyErrors.CouldNotBeFound;
-		}
+		if (!companyExistsResult.Value) return CompanyErrors.CouldNotBeFound;
 
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)

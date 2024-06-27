@@ -1,5 +1,4 @@
 using AutoMapper;
-using Car_Mender.Domain.Entities;
 using Car_Mender.Domain.Features.Workers.DTOs;
 using Car_Mender.Domain.Features.Workers.Entities;
 using Car_Mender.Infrastructure.Features.Workers.Commands.CreateWorker;

@@ -20,10 +20,7 @@ public class BranchController(IMediator mediator) : ControllerBase
 	public async Task<IActionResult> CreateBranchAsync([FromBody] CreateBranchCommand command)
 	{
 		var result = await mediator.Send(command);
-		if (result.IsSuccess)
-		{
-			return CreatedAtRoute("GetBranchByIdRoute", new { id = result.Value }, result.Value);
-		}
+		if (result.IsSuccess) return CreatedAtRoute("GetBranchByIdRoute", new { id = result.Value }, result.Value);
 
 		return result.Error.Code switch
 		{
@@ -38,10 +35,7 @@ public class BranchController(IMediator mediator) : ControllerBase
 	{
 		var query = new GetBranchQuery(id);
 		var getBranchResult = await mediator.Send(query);
-		if (getBranchResult.IsSuccess)
-		{
-			return Ok(getBranchResult.Value);
-		}
+		if (getBranchResult.IsSuccess) return Ok(getBranchResult.Value);
 
 		return getBranchResult.Error.Code switch
 		{
@@ -55,17 +49,11 @@ public class BranchController(IMediator mediator) : ControllerBase
 	public async Task<IActionResult> UpdateBranchById(Guid id,
 		[FromBody] JsonPatchDocument<UpdateBranchDto> patchDocument)
 	{
-		if (patchDocument is null)
-		{
-			return BadRequest("Invalid Json Patch Document");
-		}
+		if (patchDocument is null) return BadRequest("Invalid Json Patch Document");
 
 		var command = new UpdateBranchCommand(id, patchDocument);
 		var updateBranchResult = await mediator.Send(command);
-		if (updateBranchResult.IsSuccess)
-		{
-			return NoContent();
-		}
+		if (updateBranchResult.IsSuccess) return NoContent();
 
 		return updateBranchResult.Error.Code switch
 		{
@@ -80,10 +68,7 @@ public class BranchController(IMediator mediator) : ControllerBase
 	{
 		var command = new DeleteBranchCommand(id);
 		var deleteBranchResult = await mediator.Send(command);
-		if (deleteBranchResult.IsSuccess)
-		{
-			return NoContent();
-		}
+		if (deleteBranchResult.IsSuccess) return NoContent();
 
 		return deleteBranchResult.Error.Code switch
 		{

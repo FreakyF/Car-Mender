@@ -4,7 +4,6 @@ using Car_Mender.Domain.Features.Engines.Errors;
 using Car_Mender.Infrastructure.Features.Engines.Commands.CreateEngine;
 using Car_Mender.Infrastructure.Features.Engines.Commands.DeleteEngine;
 using Car_Mender.Infrastructure.Features.Engines.Commands.UpdateEngine;
-using Car_Mender.Infrastructure.Features.Engines.Queries;
 using Car_Mender.Infrastructure.Features.Engines.Queries.GetEngineQuery;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
@@ -20,10 +19,7 @@ public class EngineController(IMediator mediator) : ControllerBase
 	public async Task<IActionResult> CreateEngineAsync([FromBody] CreateEngineCommand command)
 	{
 		var result = await mediator.Send(command);
-		if (result.IsSuccess)
-		{
-			return CreatedAtRoute("GetEngineByIdRoute", new { id = result.Value }, result.Value);
-		}
+		if (result.IsSuccess) return CreatedAtRoute("GetEngineByIdRoute", new { id = result.Value }, result.Value);
 
 		return result.Error.Code switch
 		{
@@ -38,10 +34,7 @@ public class EngineController(IMediator mediator) : ControllerBase
 	{
 		var query = new GetEngineQuery(id);
 		var getEngineResult = await mediator.Send(query);
-		if (getEngineResult.IsSuccess)
-		{
-			return Ok(getEngineResult.Value);
-		}
+		if (getEngineResult.IsSuccess) return Ok(getEngineResult.Value);
 
 		return getEngineResult.Error.Code switch
 		{
@@ -55,17 +48,11 @@ public class EngineController(IMediator mediator) : ControllerBase
 	public async Task<IActionResult> UpdateEngineById(Guid id,
 		[FromBody] JsonPatchDocument<UpdateEngineDto> patchDocument)
 	{
-		if (patchDocument is null)
-		{
-			return BadRequest("Invalid Json Patch Document");
-		}
+		if (patchDocument is null) return BadRequest("Invalid Json Patch Document");
 
 		var command = new UpdateEngineCommand(id, patchDocument);
 		var updateEngineResult = await mediator.Send(command);
-		if (updateEngineResult.IsSuccess)
-		{
-			return NoContent();
-		}
+		if (updateEngineResult.IsSuccess) return NoContent();
 
 		return updateEngineResult.Error.Code switch
 		{
@@ -80,10 +67,7 @@ public class EngineController(IMediator mediator) : ControllerBase
 	{
 		var command = new DeleteEngineCommand(id);
 		var deleteEngineResult = await mediator.Send(command);
-		if (deleteEngineResult.IsSuccess)
-		{
-			return NoContent();
-		}
+		if (deleteEngineResult.IsSuccess) return NoContent();
 
 		return deleteEngineResult.Error.Code switch
 		{

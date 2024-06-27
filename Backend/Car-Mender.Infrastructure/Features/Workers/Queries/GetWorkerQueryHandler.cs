@@ -13,16 +13,10 @@ public class GetWorkerQueryHandler(
 {
 	public async Task<Result<GetWorkerDto>> Handle(GetWorkerQuery request, CancellationToken cancellationToken)
 	{
-		if (request.Id.Equals(Guid.Empty))
-		{
-			return Error.InvalidId;
-		}
+		if (request.Id.Equals(Guid.Empty)) return Error.InvalidId;
 
 		var getWorkerResult = await repository.GetWorkerByIdNoTrackingAsync(request.Id, cancellationToken);
-		if (getWorkerResult.IsFailure)
-		{
-			return Result<GetWorkerDto>.Failure(getWorkerResult.Error);
-		}
+		if (getWorkerResult.IsFailure) return Result<GetWorkerDto>.Failure(getWorkerResult.Error);
 
 		var workerDto = mapper.Map<GetWorkerDto>(getWorkerResult.Value);
 		return Result<GetWorkerDto>.Success(workerDto);
