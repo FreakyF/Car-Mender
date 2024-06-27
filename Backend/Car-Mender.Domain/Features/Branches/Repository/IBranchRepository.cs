@@ -11,7 +11,7 @@ public interface IBranchRepository
 	Task<Result<IEnumerable<Branch>>> GetAllBranchesAsync();
 	Task<Result<Guid>> CreateBranchAsync(Branch branch, CancellationToken cancellationToken);
 	Task<Result> UpdateBranchAsync(Branch branch, CancellationToken cancellationToken);
-	Task<Result> DeleteBranchAsync(Guid id);
+	Task<Result> DeleteBranchAsync(Guid id, CancellationToken cancellationToken);
 	Task<Result<bool>> ExistsAsync(Guid id);
 	Task<Result<int>> SaveChangesAsync(CancellationToken cancellationToken);
 }

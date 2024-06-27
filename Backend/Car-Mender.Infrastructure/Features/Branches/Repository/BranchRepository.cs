@@ -54,9 +54,18 @@ public class BranchRepository(AppDbContext context) : IBranchRepository
 		throw new NotImplementedException();
 	}
 
-	public Task<Result> DeleteBranchAsync(Guid id)
+	public async Task<Result> DeleteBranchAsync(Guid id, CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var getBranchResult = await GetBranchByIdAsync(id, cancellationToken);
+		if (getBranchResult.IsFailure)
+		{
+			return Result.Failure(getBranchResult.Error);
+		}
+
+		var branch = getBranchResult.Value;
+		context.Branches.Remove(branch!);
+		await context.SaveChangesAsync(cancellationToken);
+		return Result.Success();
 	}
 
 	public async Task<Result<bool>> ExistsAsync(Guid id)
