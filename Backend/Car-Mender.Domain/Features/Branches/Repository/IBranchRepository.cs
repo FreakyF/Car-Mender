@@ -1,5 +1,4 @@
 using Car_Mender.Domain.Common;
-using Car_Mender.Domain.Entities;
 using Car_Mender.Domain.Features.Branches.Entities;
 
 namespace Car_Mender.Domain.Features.Branches.Repository;
