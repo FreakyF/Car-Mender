@@ -2,10 +2,12 @@ using System.Reflection;
 using Car_Mender.API.Features.Swagger;
 using Car_Mender.Domain.Features.Branches.Repository;
 using Car_Mender.Domain.Features.Companies.Repository;
+using Car_Mender.Domain.Features.Workers.Repository;
 using Car_Mender.Infrastructure;
 using Car_Mender.Infrastructure.Features.Branches.Repository;
 using Car_Mender.Infrastructure.Features.Companies.Mapping;
 using Car_Mender.Infrastructure.Features.Companies.Repository;
+using Car_Mender.Infrastructure.Features.Workers.Repository;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +33,7 @@ public class Program
 		});
 		builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 		builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+		builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
 		builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<InfrastructureAssemblyMarker>());
 		builder.Services.AddValidatorsFromAssemblyContaining<InfrastructureAssemblyMarker>();
 
