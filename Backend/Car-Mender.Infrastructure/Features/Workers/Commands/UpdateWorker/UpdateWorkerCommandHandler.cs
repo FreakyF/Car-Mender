@@ -26,7 +26,7 @@ public class UpdateWorkerCommandHandler(
 		var branchIdBeingUpdated = branchIdUpdateOperation is not null;
 		if (branchIdBeingUpdated)
 		{
-			var branchId = (Guid)branchIdUpdateOperation!.value;
+			var branchId = Guid.Parse(branchIdUpdateOperation!.value.ToString()!);
 			if (branchId.Equals(Guid.Empty)) return Error.InvalidId;
 			var branchExistsResult = await branchRepository.ExistsAsync(branchId);
 			if (!branchExistsResult.Value) return BranchErrors.CouldNotBeFound;
