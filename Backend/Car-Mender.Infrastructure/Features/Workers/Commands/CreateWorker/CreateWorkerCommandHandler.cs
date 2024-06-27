@@ -4,7 +4,6 @@ using Car_Mender.Domain.Features.Branches.Errors;
 using Car_Mender.Domain.Features.Branches.Repository;
 using Car_Mender.Domain.Features.Workers.Entities;
 using Car_Mender.Domain.Features.Workers.Repository;
-using Car_Mender.Infrastructure.Features.Branches.Commands.CreateBranch;
 using FluentValidation;
 using MediatR;
 
