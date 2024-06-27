@@ -12,7 +12,7 @@ public class WorkerMappingProfile : Profile
 	{
 		CreateMap<CreateWorkerCommand, Worker>()
 			.ForMember(dest => dest.Id, opt => opt.Ignore())
-			.ForMember(dest => dest.BranchId, opt => opt.Ignore());
+			.ForMember(dest => dest.Branch, opt => opt.Ignore());
 		CreateMap<Worker, GetWorkerDto>();
 	}
 }
