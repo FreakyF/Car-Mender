@@ -1,6 +1,7 @@
+using Car_Mender.Domain.Entities;
 using Car_Mender.Domain.Enums;
 
-namespace Car_Mender.Domain.Entities;
+namespace Car_Mender.Domain.Features.Engines.Entities;
 
 public class Engine : BaseEntity
 {
