@@ -2,11 +2,14 @@ using AutoMapper;
 using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Branches.Errors;
 using Car_Mender.Domain.Features.Branches.Repository;
+using Car_Mender.Domain.Features.Workers.DTOs;
 using Car_Mender.Domain.Features.Workers.Entities;
+using Car_Mender.Domain.Features.Workers.Errors;
 using Car_Mender.Domain.Features.Workers.Repository;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 
 namespace Car_Mender.Infrastructure.Features.Workers.Commands.UpdateWorker;
 
@@ -19,11 +22,18 @@ public class UpdateWorkerCommandHandler(
 {
 	public async Task<Result> Handle(UpdateWorkerCommand request, CancellationToken cancellationToken)
 	{
-		var branchExistsResult = await branchRepository.ExistsAsync(request.Id);
-		if (branchExistsResult.IsFailure) return Result.Failure(branchExistsResult.Error);
+		var branchIdUpdateOperation = GetUpdateBranchIdOperation(request);
+		var branchIdBeingUpdated = branchIdUpdateOperation is not null;
+		if (branchIdBeingUpdated)
+		{
+			var branchId = (Guid)branchIdUpdateOperation!.value;
+			if (branchId.Equals(Guid.Empty)) return Error.InvalidId;
+			var branchExistsResult = await branchRepository.ExistsAsync(branchId);
+			if (!branchExistsResult.Value) return BranchErrors.CouldNotBeFound;
+		}
 
-		var branchExists = branchExistsResult.Value;
-		if (branchExists) return BranchErrors.CouldNotBeFound;
+		var workerExistResult = await workerRepository.ExistsAsync(request.Id);
+		if (!workerExistResult.Value) return WorkerErrors.CouldNotBeFound;
 
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)
@@ -38,5 +48,14 @@ public class UpdateWorkerCommandHandler(
 		await branchRepository.SaveChangesAsync(cancellationToken);
 
 		return Result.Success();
+	}
+
+	private static Operation<UpdateWorkerDto>? GetUpdateBranchIdOperation(UpdateWorkerCommand request)
+	{
+		return request.PatchDocument.Operations
+			.FirstOrDefault(op =>
+				string.Equals(op.path, $"/{nameof(UpdateWorkerDto.BranchId)}",
+					StringComparison.InvariantCultureIgnoreCase)
+			);
 	}
 }
