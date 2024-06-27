@@ -1,6 +1,7 @@
 using Car_Mender.Domain.Entities;
 using Car_Mender.Domain.Features.Branches.Entities;
 using Car_Mender.Domain.Features.Companies.Entities;
+using Car_Mender.Domain.Features.Workers.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Car_Mender.Infrastructure.Persistence.DatabaseContext;

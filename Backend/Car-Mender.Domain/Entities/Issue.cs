@@ -1,4 +1,5 @@
 using Car_Mender.Domain.Enums;
+using Car_Mender.Domain.Features.Workers.Entities;
 
 namespace Car_Mender.Domain.Entities;
 
