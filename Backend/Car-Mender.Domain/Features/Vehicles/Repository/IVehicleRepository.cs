@@ -1,12 +1,16 @@
+using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Vehicles.Entities;
 
 namespace Car_Mender.Domain.Features.Vehicles.Repository;
 
 public interface IVehicleRepository
 {
-	Task<Vehicle> GetVehicleByIdAsync(Guid id);
+	Task<Result<Vehicle>> GetVehicleByIdAsync(Guid id, CancellationToken cancellationToken);
+	Task<Result<Vehicle>> GetVehicleByIdNoTrackingAsync(Guid id, CancellationToken cancellationToken);
 	Task<IEnumerable<Vehicle>> GetAllVehiclesAsync();
-	Task AddVehicleAsync(Vehicle vehicle);
-	Task UpdateVehicleAsync(Vehicle vehicle);
-	Task DeleteVehicleAsync(Guid id);
+	Task<Result<Guid>> CreateVehicleAsync(Vehicle vehicle, CancellationToken cancellationToken);
+	Task<Result> UpdateVehicleAsync(Vehicle vehicle, CancellationToken cancellationToken);
+	Task<Result> DeleteVehicleAsync(Guid id, CancellationToken cancellationToken);
+	Task<Result<bool>> ExistsAsync(Guid id);
+	Task<Result<int>> SaveChangesAsync(CancellationToken cancellationToken);
 }
