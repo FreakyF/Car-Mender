@@ -1,5 +1,4 @@
 using Car_Mender.Domain.Common;
-using Car_Mender.Domain.Features.Companies.Errors;
 
 namespace Car_Mender.Domain.Features.Engines.Errors;
 

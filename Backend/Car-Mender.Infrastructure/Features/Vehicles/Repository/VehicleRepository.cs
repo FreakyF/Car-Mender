@@ -29,7 +29,7 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
 			: Result<Vehicle>.Success(vehicle);
 	}
 
-	public Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
+	public Task<Result<IEnumerable<Vehicle>>> GetAllVehiclesAsync()
 	{
 		throw new NotImplementedException();
 	}
@@ -67,7 +67,9 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
 
 	public async Task<Result<bool>> ExistsAsync(Guid id)
 	{
-		var exists = await context.Vehicles.AnyAsync(e => e.Id == id);
+		var exists = false;
+		exists = await context.Vehicles.AnyAsync(e => e.Id == id);
+
 		return Result<bool>.Success(exists);
 	}
 

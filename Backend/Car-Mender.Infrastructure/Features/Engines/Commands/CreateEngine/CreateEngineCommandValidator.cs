@@ -24,6 +24,7 @@ public class CreateEngineCommandValidator : AbstractValidator<CreateEngineComman
 
 		RuleFor(e => e.FuelType)
 			.NotEmpty().WithMessage($"{nameof(Engine.FuelType)} cannot be empty.")
-			.IsInEnum().WithMessage($"{nameof(Engine.FuelType)} must be a valid fuel type.");
+			.IsInEnum().WithMessage(
+				$"{nameof(Engine.FuelType)}  must be a valid fuel type:  {{string.Join(\", \", Enum.GetNames(typeof(FuelType)))}}.");
 	}
 }

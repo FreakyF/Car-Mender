@@ -43,7 +43,7 @@ public class VehicleController(IMediator mediator) : ControllerBase
 			_ => StatusCode(500)
 		};
 	}
-	
+
 	[HttpPatch("{id:guid}")]
 	public async Task<IActionResult> UpdateVehicleById(Guid id,
 		[FromBody] JsonPatchDocument<UpdateVehicleDto> patchDocument)

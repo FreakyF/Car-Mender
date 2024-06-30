@@ -32,7 +32,7 @@ public class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleComm
 		{
 			>= 1981 => vin.Length >= 17,
 			>= 1954 => vin.Length is >= 5 and <= 17,
-			< 1954 => string.IsNullOrEmpty(vin),
+			< 1954 => string.IsNullOrEmpty(vin)
 		};
 	}
 }

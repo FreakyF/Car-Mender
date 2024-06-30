@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Car-Mender.API\Car-Mender.API.csproj" />
+        <ProjectReference Include="..\Car-Mender.API\Car-Mender.API.csproj"/>
     </ItemGroup>
 
 </Project>

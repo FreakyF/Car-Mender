@@ -64,7 +64,7 @@ public class BranchController(IMediator mediator) : ControllerBase
 	}
 
 	[HttpDelete("{id:guid}")]
-	public async Task<IActionResult> DeleteCompanyById(Guid id)
+	public async Task<IActionResult> DeleteBranchById(Guid id)
 	{
 		var command = new DeleteBranchCommand(id);
 		var deleteBranchResult = await mediator.Send(command);

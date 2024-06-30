@@ -23,8 +23,8 @@ public class UpdateVehicleCommandHandler(
 	public async Task<Result> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
 	{
 		var engineIdUpdateOperation = GetUpdateEngineIdOperation(request);
-		var branchIdBeingUpdated = engineIdUpdateOperation is not null;
-		if (branchIdBeingUpdated)
+		var vehicleIdBeingUpdated = engineIdUpdateOperation is not null;
+		if (vehicleIdBeingUpdated)
 		{
 			var engineId = Guid.Parse(engineIdUpdateOperation!.value.ToString()!);
 			if (engineId.Equals(Guid.Empty)) return Error.InvalidId;
@@ -53,7 +53,7 @@ public class UpdateVehicleCommandHandler(
 	private static Operation<UpdateVehicleDto>? GetUpdateEngineIdOperation(UpdateVehicleCommand request)
 	{
 		return request.PatchDocument.Operations
-			.FirstOrDefault(op =>
+			.Find(op =>
 				string.Equals(op.path, $"/{nameof(UpdateVehicleDto.EngineId)}",
 					StringComparison.InvariantCultureIgnoreCase)
 			);

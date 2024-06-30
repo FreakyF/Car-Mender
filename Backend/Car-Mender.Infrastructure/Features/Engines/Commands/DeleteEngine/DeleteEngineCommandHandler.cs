@@ -1,6 +1,5 @@
 using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Engines.Repository;
-using Car_Mender.Infrastructure.Features.Branches.Commands.DeleteBranch;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
