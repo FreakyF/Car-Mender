@@ -1,4 +1,6 @@
+using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Vehicles.Entities;
+using Car_Mender.Domain.Features.Vehicles.Errors;
 using Car_Mender.Domain.Features.Vehicles.Repository;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
@@ -7,32 +9,71 @@ namespace Car_Mender.Infrastructure.Features.Vehicles.Repository;
 
 public class VehicleRepository(AppDbContext context) : IVehicleRepository
 {
-	public async Task<Vehicle> GetVehicleByIdAsync(Guid id)
+	public async Task<Result<Vehicle>> GetVehicleByIdAsync(Guid id, CancellationToken cancellationToken)
 	{
-		return await context.Set<Vehicle>().FirstOrDefaultAsync(a => a.Id == id);
+		var vehicle = await context.Vehicles.FirstOrDefaultAsync(v => v.Id == id, cancellationToken);
+
+		return vehicle is null
+			? VehicleErrors.CouldNotBeFound
+			: Result<Vehicle>.Success(vehicle);
 	}
 
-	public async Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
+	public async Task<Result<Vehicle>> GetVehicleByIdNoTrackingAsync(Guid id, CancellationToken cancellationToken)
 	{
-		return await context.Set<Vehicle>().ToListAsync();
+		var vehicle = await context.Vehicles
+			.AsNoTracking()
+			.FirstOrDefaultAsync(v => v.Id == id, cancellationToken);
+
+		return vehicle is null
+			? VehicleErrors.CouldNotBeFound
+			: Result<Vehicle>.Success(vehicle);
 	}
 
-	public async Task AddVehicleAsync(Vehicle vehicle)
+	public Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
 	{
-		await context.Set<Vehicle>().AddAsync(vehicle);
-		await context.SaveChangesAsync();
+		throw new NotImplementedException();
 	}
 
-	public async Task UpdateVehicleAsync(Vehicle vehicle)
+	public async Task<Result<Guid>> CreateVehicleAsync(Vehicle vehicle, CancellationToken cancellationToken)
 	{
-		context.Set<Vehicle>().Update(vehicle);
-		await context.SaveChangesAsync();
+		try
+		{
+			await context.Vehicles.AddAsync(vehicle, cancellationToken);
+			await context.SaveChangesAsync(cancellationToken);
+		}
+		catch (Exception)
+		{
+			return Error.Unexpected;
+		}
+
+		return Result<Guid>.Success(vehicle.Id);
 	}
 
-	public async Task DeleteVehicleAsync(Guid id)
+	public Task<Result> UpdateVehicleAsync(Vehicle vehicle, CancellationToken cancellationToken)
 	{
-		var vehicle = await GetVehicleByIdAsync(id);
-		context.Set<Vehicle>().Remove(vehicle);
-		await context.SaveChangesAsync();
+		throw new NotImplementedException();
+	}
+
+	public async Task<Result> DeleteVehicleAsync(Guid id, CancellationToken cancellationToken)
+	{
+		var getVehicleResult = await GetVehicleByIdAsync(id, cancellationToken);
+		if (getVehicleResult.IsFailure) return Result.Failure(getVehicleResult.Error);
+
+		var vehicle = getVehicleResult.Value;
+		context.Vehicles.Remove(vehicle!);
+		await context.SaveChangesAsync(cancellationToken);
+		return Result.Success();
+	}
+
+	public async Task<Result<bool>> ExistsAsync(Guid id)
+	{
+		var exists = await context.Vehicles.AnyAsync(e => e.Id == id);
+		return Result<bool>.Success(exists);
+	}
+
+	public async Task<Result<int>> SaveChangesAsync(CancellationToken cancellationToken)
+	{
+		var writtenEntities = await context.SaveChangesAsync(cancellationToken);
+		return Result<int>.Success(writtenEntities);
 	}
 }
