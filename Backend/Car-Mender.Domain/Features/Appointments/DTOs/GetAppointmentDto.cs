@@ -5,6 +5,4 @@ namespace Car_Mender.Domain.Features.Appointments.DTOs;
 
 public static class GetAppointmentDto
 {
-	public static readonly Error CouldNotBeFound =
-		new(AppointmentErrors.CouldNotBeFound, "Given appointment could not be found.");
 }
