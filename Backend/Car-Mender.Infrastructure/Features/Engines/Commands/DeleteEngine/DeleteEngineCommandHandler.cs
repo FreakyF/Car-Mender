@@ -8,7 +8,7 @@ namespace Car_Mender.Infrastructure.Features.Engines.Commands.DeleteEngine;
 
 public class DeleteEngineCommandHandler(
 	IEngineRepository engineRepository,
-	ILogger<DeleteBranchCommandHandler> logger)
+	ILogger<DeleteEngineCommandHandler> logger)
 	: IRequestHandler<DeleteEngineCommand, Result>
 {
 	public async Task<Result> Handle(DeleteEngineCommand request, CancellationToken cancellationToken)
