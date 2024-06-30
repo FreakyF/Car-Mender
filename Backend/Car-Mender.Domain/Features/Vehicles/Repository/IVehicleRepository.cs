@@ -1,6 +1,6 @@
-using Car_Mender.Domain.Entities;
+using Car_Mender.Domain.Features.Vehicles.Entities;
 
-namespace Car_Mender.Domain.Repositories;
+namespace Car_Mender.Domain.Features.Vehicles.Repository;
 
 public interface IVehicleRepository
 {

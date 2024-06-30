@@ -1,9 +1,9 @@
-using Car_Mender.Domain.Entities;
-using Car_Mender.Domain.Repositories;
+using Car_Mender.Domain.Features.Vehicles.Entities;
+using Car_Mender.Domain.Features.Vehicles.Repository;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace Car_Mender.Infrastructure.Repositories;
+namespace Car_Mender.Infrastructure.Features.Vehicles.Repository;
 
 public class VehicleRepository(AppDbContext context) : IVehicleRepository
 {
