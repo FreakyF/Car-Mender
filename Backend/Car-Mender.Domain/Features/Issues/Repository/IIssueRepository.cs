@@ -1,5 +1,6 @@
 using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Entities;
+using Car_Mender.Domain.Features.Issues.Entities;
 
 namespace Car_Mender.Domain.Features.Issues.Repository;
 

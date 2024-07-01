@@ -3,6 +3,7 @@ using Car_Mender.Domain.Features.Appointments.Entities;
 using Car_Mender.Domain.Features.Branches.Entities;
 using Car_Mender.Domain.Features.Companies.Entities;
 using Car_Mender.Domain.Features.Engines.Entities;
+using Car_Mender.Domain.Features.Issues.Entities;
 using Car_Mender.Domain.Features.Vehicles.Entities;
 using Car_Mender.Domain.Features.Workers.Entities;
 using Microsoft.EntityFrameworkCore;

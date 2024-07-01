@@ -1,8 +1,9 @@
+using Car_Mender.Domain.Entities;
 using Car_Mender.Domain.Enums;
 using Car_Mender.Domain.Features.Appointments.Entities;
 using Car_Mender.Domain.Features.Workers.Entities;
 
-namespace Car_Mender.Domain.Entities;
+namespace Car_Mender.Domain.Features.Issues.Entities;
 
 public class Issue : BaseEntity
 {
