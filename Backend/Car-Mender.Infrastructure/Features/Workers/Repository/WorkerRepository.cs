@@ -29,7 +29,7 @@ public class WorkerRepository(AppDbContext context) : IWorkerRepository
 			: Result<Worker>.Success(worker);
 	}
 
-	public Task<IEnumerable<Worker>> GetAllWorkersAsync()
+	public Task<Result<IEnumerable<Worker>>> GetAllWorkersAsync()
 	{
 		throw new NotImplementedException();
 	}
