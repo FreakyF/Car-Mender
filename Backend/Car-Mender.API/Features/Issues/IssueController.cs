@@ -1,11 +1,10 @@
 using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Issues.DTOs;
 using Car_Mender.Domain.Features.Issues.Errors;
-using Car_Mender.Domain.Features.Workers.DTOs;
+using Car_Mender.Infrastructure.Features.Issues.Commands.CreateIssue;
 using Car_Mender.Infrastructure.Features.Issues.Commands.DeleteIssue;
 using Car_Mender.Infrastructure.Features.Issues.Commands.UpdateIssue;
 using Car_Mender.Infrastructure.Features.Issues.Queries;
-using Car_Mender.Infrastructure.Features.Workers.Commands.CreateWorker;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +16,7 @@ namespace Car_Mender.API.Features.Issues;
 public class IssueController(IMediator mediator) : ControllerBase
 {
 	[HttpPost]
-	public async Task<IActionResult> CreateIssueAsync([FromBody] CreateWorkerCommand command)
+	public async Task<IActionResult> CreateIssueAsync([FromBody] CreateIssueCommand command)
 	{
 		var result = await mediator.Send(command);
 		if (result.IsSuccess) return CreatedAtRoute("GetIssueByIdRoute", new { id = result.Value }, result.Value);
@@ -31,7 +30,7 @@ public class IssueController(IMediator mediator) : ControllerBase
 	}
 
 	[HttpGet("{id:guid}", Name = "GetIssueByIdRoute")]
-	public async Task<ActionResult<GetWorkerDto>> GetWorkerById(Guid id)
+	public async Task<ActionResult<GetIssueDto>> GetWorkerById(Guid id)
 	{
 		var query = new GetIssueQuery(id);
 		var getIssueResult = await mediator.Send(query);
