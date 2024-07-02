@@ -58,7 +58,7 @@ public class BranchController(IMediator mediator) : ControllerBase
 		return updateBranchResult.Error.Code switch
 		{
 			ErrorCodes.InvalidId => BadRequest(updateBranchResult.Error.Description),
-			CompanyErrorCodes.CouldNotBeFound => NotFound(updateBranchResult.Error.Description),
+			BranchErrorCodes.CouldNotBeFound => NotFound(updateBranchResult.Error.Description),
 			_ => StatusCode(500, updateBranchResult.Error.Description)
 		};
 	}
