@@ -1,12 +1,16 @@
+using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Entities;
 
 namespace Car_Mender.Domain.Repositories;
 
 public interface IBranchVehicleRepository
 {
-	Task<BranchVehicle> GetBranchVehicleByIdAsync(Guid id);
-	Task<IEnumerable<BranchVehicle>> GetAllBranchVehiclesAsync();
-	Task AddBranchVehicleAsync(BranchVehicle branchVehicle);
-	Task UpdateBranchVehicleAsync(BranchVehicle branchVehicle);
-	Task DeleteBranchVehicleAsync(Guid id);
+	Task<Result<BranchVehicle>> GetBranchVehicleByIdAsync(Guid id, CancellationToken cancellationToken);
+	Task<Result<BranchVehicle>> GetBranchVehicleByNoTrackingIdAsync(Guid id, CancellationToken cancellationToken);
+	Task<Result<IEnumerable<BranchVehicle>>> GetAllBranchVehiclesAsync();
+	Task<Result<Guid>> CreateBranchVehicleAsync(BranchVehicle branchVehicle, CancellationToken cancellationToken);
+	Task<Result> UpdateBranchVehicleAsync(BranchVehicle branchVehicle, CancellationToken cancellationToken);
+	Task<Result> DeleteBranchVehicleAsync(Guid id, CancellationToken cancellationToken);
+	Task<Result<bool>> ExistsAsync(Guid id);
+	Task<Result<int>> SaveChangesAsync(CancellationToken cancellationToken);
 }

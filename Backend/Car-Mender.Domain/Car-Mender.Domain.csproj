@@ -14,7 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\BranchesVehicles\DTOs\" />
       <Folder Include="Repositories\" />
     </ItemGroup>
 
