@@ -27,4 +27,11 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\BranchesVehicles\Commands\" />
+      <Folder Include="Features\BranchesVehicles\Mapping\" />
+      <Folder Include="Features\BranchesVehicles\Queries\" />
+      <Folder Include="Repositories\" />
+    </ItemGroup>
+
 </Project>
