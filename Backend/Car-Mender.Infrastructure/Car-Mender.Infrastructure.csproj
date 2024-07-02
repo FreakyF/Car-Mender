@@ -28,8 +28,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\BranchesVehicles\Commands\" />
-      <Folder Include="Features\BranchesVehicles\Mapping\" />
       <Folder Include="Repositories\" />
     </ItemGroup>
 
