@@ -19,7 +19,6 @@ public class UpdateBranchVehicleCommandHandler(
 	IBranchVehicleRepository branchVehicleRepository,
 	IBranchRepository branchRepository,
 	IVehicleRepository vehicleRepository,
-	IValidator<UpdateBranchVehicleCommand> validator,
 	IMapper mapper
 ) : IRequestHandler<UpdateBranchVehicleCommand, Result>
 {
@@ -47,13 +46,6 @@ public class UpdateBranchVehicleCommandHandler(
 
 		var branchVehicleExistResult = await branchVehicleRepository.ExistsAsync(request.Id);
 		if (!branchVehicleExistResult.Value) return WorkerErrors.CouldNotBeFound;
-
-		var validationResult = await validator.ValidateAsync(request, cancellationToken);
-		if (!validationResult.IsValid)
-		{
-			var errors = validationResult.Errors.Select(e => e.ErrorMessage);
-			return Error.ValidationError(errors);
-		}
 
 		var getBranchVehicleResult =
 			await branchVehicleRepository.GetBranchVehicleByIdAsync(request.Id, cancellationToken);
