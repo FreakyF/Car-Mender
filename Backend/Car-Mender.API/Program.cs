@@ -23,7 +23,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Car_Mender.API;
 
-public static class Program
+public class Program
 {
 	public static void Main(string[] args)
 	{
