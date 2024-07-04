@@ -31,7 +31,6 @@ public class BranchesControllerTests : BaseIntegrationTest, IDisposable
 		var dbContext = _services.GetRequiredService<AppDbContext>();
 		var company = new Company
 		{
-			Id = Guid.NewGuid(),
 			Email = "test@mail.com",
 			Name = "TestName",
 			Address = new Address
