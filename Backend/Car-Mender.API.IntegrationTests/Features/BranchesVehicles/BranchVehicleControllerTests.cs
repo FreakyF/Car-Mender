@@ -89,7 +89,7 @@ public class BranchVehicleControllerTests : BaseIntegrationTest, IDisposable
 			Model = "TestModel",
 			Generation = "TestGeneration",
 			Year = 2024,
-			Engine = engine
+			EngineId = engine.Id
 		};
 
 

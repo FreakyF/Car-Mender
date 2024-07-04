@@ -38,9 +38,9 @@ public class AppointmentControllerTests : BaseIntegrationTest, IDisposable
 			TorqueNm = 120,
 			FuelType = FuelType.Gasoline
 		};
-		
+
 		await dbContext.Engines.AddAsync(engine);
-		
+
 		var vehicle = new Vehicle
 		{
 			Vin = "TestVin1234567890",
@@ -48,7 +48,7 @@ public class AppointmentControllerTests : BaseIntegrationTest, IDisposable
 			Model = "TestModel",
 			Generation = "TestGeneration",
 			Year = 2024,
-			Engine = engine
+			EngineId = engine.Id
 		};
 
 		await dbContext.Vehicles.AddAsync(vehicle);

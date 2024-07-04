@@ -45,6 +45,8 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
 			FuelType = FuelType.Gasoline
 		};
 
+		await dbContext.Engines.AddAsync(engine);
+
 		var vehicle = new Vehicle
 		{
 			Vin = "TestVin1234567890",
@@ -52,7 +54,7 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
 			Model = "TestModel",
 			Generation = "TestGeneration",
 			Year = 2024,
-			Engine = engine
+			EngineId = engine.Id
 		};
 
 		await dbContext.Vehicles.AddAsync(vehicle);
@@ -63,8 +65,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
 			Date = DateTime.Today.AddDays(1),
 			Description = "TestDescription",
 			AppointmentStatus = AppointmentStatus.Scheduled,
-			Vehicle = vehicle
 		};
+
+		await dbContext.Appointments.AddAsync(appointment);
 
 		var company = new Company
 		{
@@ -82,6 +85,8 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
 			Nip = "123-456-78-90"
 		};
 
+		await dbContext.Companies.AddAsync(company);
+
 		var branch = new Branch
 		{
 			CompanyId = company.Id,
@@ -96,10 +101,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
 			},
 			Email = "test@mail.com",
 			Phone = "123456789",
-			Company = company,
 		};
 
-		await dbContext.Appointments.AddAsync(appointment);
+		await dbContext.Branches.AddAsync(branch);
 
 		var worker = new Worker
 		{
@@ -108,7 +112,7 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
 			FirstName = "FirstName",
 			LastName = "LastName",
 			Phone = "123456789",
-			Branch = branch
+			BranchId = branch.Id
 		};
 
 		await dbContext.Workers.AddAsync(worker);
