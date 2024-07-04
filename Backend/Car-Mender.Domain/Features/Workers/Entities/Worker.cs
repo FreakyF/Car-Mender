@@ -5,8 +5,8 @@ namespace Car_Mender.Domain.Features.Workers.Entities;
 
 public class Worker : BaseEntity
 {
-	public Guid BranchId { get; init; }
-	public required Branch Branch { get; init; }
+	public required Guid BranchId { get; init; }
+	public Branch Branch { get; init; }
 	public required string Email { get; set; }
 	public required string Password { get; set; }
 	public required string FirstName { get; set; }

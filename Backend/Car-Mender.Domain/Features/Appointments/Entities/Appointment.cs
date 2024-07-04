@@ -6,8 +6,8 @@ namespace Car_Mender.Domain.Features.Appointments.Entities;
 
 public class Appointment : BaseEntity
 {
-	public Guid VehicleId { get; init; }
-	public required Vehicle Vehicle { get; init; }
+	public required Guid VehicleId { get; init; }
+	public Vehicle Vehicle { get; init; }
 	public required DateTime Date { get; set; }
 	public required string Description { get; set; }
 	public required AppointmentStatus AppointmentStatus { get; set; }
