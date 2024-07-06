@@ -10,8 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Car_Mender.Infrastructure.Persistence.DatabaseContext;
 
-public interface IAppDbContext
+public interface IAppDbContext : IDisposable
 {
+	Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 	public DbSet<Company> Companies { get; set; }
 	public DbSet<Appointment> Appointments { get; set; }
 	public DbSet<Branch> Branches { get; set; }
