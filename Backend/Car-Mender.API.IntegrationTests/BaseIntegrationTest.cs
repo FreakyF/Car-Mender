@@ -25,9 +25,7 @@ public abstract class BaseIntegrationTest
 
 	public void Dispose()
 	{
-		_dbContext.Dispose();
 		_scope.Dispose();
-		Client.Dispose();
-		Server.Dispose();
+		_dbContext.Dispose();
 	}
 }

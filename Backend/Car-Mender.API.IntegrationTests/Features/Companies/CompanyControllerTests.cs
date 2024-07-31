@@ -6,7 +6,6 @@ using Car_Mender.Domain.Models;
 using Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Operations;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
