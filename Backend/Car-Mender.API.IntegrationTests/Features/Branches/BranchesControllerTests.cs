@@ -74,7 +74,7 @@ public class BranchesControllerTests : BaseIntegrationTest, IDisposable
     }
 
     [Fact]
-    public async Task CreateBranchAsync_InvalidBranch_ShouldReturnSuccessfulStatusCode()
+    public async Task CreateBranchAsync_InvalidBranch_ShouldReturnBadRequestStatusCode()
     {
         // Arrange
         var company = new Company
@@ -223,7 +223,7 @@ public class BranchesControllerTests : BaseIntegrationTest, IDisposable
     }
 
     [Fact]
-    public async Task UpdateBranchAsync_ValidId_ShouldReturnSuccessfulStatusCode()
+    public async Task UpdateBranchAsync_ValidId_ShouldReturnNoContentStatusCode()
     {
         // Arrange
         var company = new Company
@@ -264,6 +264,7 @@ public class BranchesControllerTests : BaseIntegrationTest, IDisposable
         await _dbContext.Branches.AddAsync(branch);
         await _dbContext.SaveChangesAsync();
 
+        // Act
         var patchDoc = new JsonPatchDocument<UpdateBranchDto>();
         patchDoc.Replace(c => c.Name, "NewTestName");
 
@@ -276,7 +277,7 @@ public class BranchesControllerTests : BaseIntegrationTest, IDisposable
     }
 
     [Fact]
-    public async Task UpdateBranchAsync_InvalidId_ShouldReturnSuccessfulStatusCode()
+    public async Task UpdateBranchAsync_InvalidId_ShouldReturnNotFoundStatusCode()
     {
         // Arrange
         var company = new Company
