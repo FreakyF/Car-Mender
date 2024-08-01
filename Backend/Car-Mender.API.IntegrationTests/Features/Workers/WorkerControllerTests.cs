@@ -1,18 +1,16 @@
 using System.Net;
 using System.Text;
-using System.Text.Json;
-using Car_Mender.Domain.Features.Branches.DTOs;
 using Car_Mender.Domain.Features.Branches.Entities;
 using Car_Mender.Domain.Features.Companies.Entities;
 using Car_Mender.Domain.Features.Workers.DTOs;
 using Car_Mender.Domain.Features.Workers.Entities;
 using Car_Mender.Domain.Models;
-using Car_Mender.Infrastructure.Features.Branches.Commands.CreateBranch;
 using Car_Mender.Infrastructure.Features.Workers.Commands.CreateWorker;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+
 
 namespace Car_Mender.API.IntegrationTests.Features.Workers;
 
