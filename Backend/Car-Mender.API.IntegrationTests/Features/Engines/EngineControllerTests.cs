@@ -52,10 +52,10 @@ public class EngineControllerTests : BaseIntegrationTest, IDisposable
         // Arrange
         var command = new CreateEngineCommand
         {
-            EngineCode = "",
-            Displacement = 123,
-            PowerKw = 123,
-            TorqueNm = 123,
+            EngineCode = null,
+            Displacement = 0,
+            PowerKw = 0,
+            TorqueNm = 0,
             FuelType = FuelType.Gasoline
         };
 

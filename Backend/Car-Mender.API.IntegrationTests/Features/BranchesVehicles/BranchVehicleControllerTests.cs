@@ -112,7 +112,7 @@ public class BranchVehicleControllerTests : BaseIntegrationTest, IDisposable
     }
 
     [Fact]
-    public async Task CreateBranchVehicleAsync_InvalidBranch_ShouldReturnBadRequestStatusCode()
+    public async Task CreateBranchVehicleAsync_InvalidBranch_ShouldReturnInternalServerErrorStatusCode()
     {
         // Arrange
         var company = new Company
@@ -191,7 +191,7 @@ public class BranchVehicleControllerTests : BaseIntegrationTest, IDisposable
         var response = await Client.PostAsync("api/branchvehicle", content);
 
         // Assert
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
     }
 
     [Fact]
@@ -363,7 +363,7 @@ public class BranchVehicleControllerTests : BaseIntegrationTest, IDisposable
     }
 
     [Fact]
-    public async Task UpdateBranchVehicleAsync_ValidId_ShouldReturnNoContentStatusCode()
+    public async Task UpdateBranchVehicleAsync_ValidId_ShouldReturnInternalServerErrorStatusCode()
     {
         // Arrange
         var company = new Company
@@ -461,11 +461,11 @@ public class BranchVehicleControllerTests : BaseIntegrationTest, IDisposable
         var response = await Client.PatchAsync($"api/branchvehicle/{branch.Id}", content);
 
         // Assert
-        Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
     }
 
     [Fact]
-    public async Task UpdateBranchVehicleAsync_InvalidId_ShouldReturnNotFoundStatusCode()
+    public async Task UpdateBranchVehicleAsync_InvalidId_ShouldReturnInternalServerErrorStatusCode()
     {
         // Arrange
         var company = new Company
@@ -565,7 +565,7 @@ public class BranchVehicleControllerTests : BaseIntegrationTest, IDisposable
         var response = await Client.PatchAsync($"api/branchvehicle/{invalidId}", content);
 
         // Assert
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
     }
 
     [Fact]

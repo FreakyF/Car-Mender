@@ -536,7 +536,7 @@ public class WorkerControllerTests : BaseIntegrationTest, IDisposable
         var response = await Client.DeleteAsync($"api/worker/{invalidId}");
 
         // Assert
-        Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 
 

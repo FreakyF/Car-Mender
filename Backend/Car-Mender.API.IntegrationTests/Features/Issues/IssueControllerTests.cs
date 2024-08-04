@@ -68,6 +68,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
             Description = "TestDescription",
             AppointmentStatus = AppointmentStatus.InProgress,
         };
+        
+        await _dbContext.Appointments.AddAsync(appointment);
+        await _dbContext.SaveChangesAsync();
 
         var company = new Company
         {
@@ -176,6 +179,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
             Description = "TestDescription",
             AppointmentStatus = AppointmentStatus.InProgress,
         };
+        
+        await _dbContext.Appointments.AddAsync(appointment);
+        await _dbContext.SaveChangesAsync();
 
         var company = new Company
         {
@@ -234,7 +240,7 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
             CreatorId = worker.Id,
             ReporterType = ReporterType.Customer,
             Description = "TestDescription",
-            ReportedDate = DateTime.UtcNow.AddYears(-1),
+            ReportedDate = DateTime.UtcNow.AddYears(1),
             Status = IssueStatus.Reported
         };
 
@@ -284,6 +290,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
             Description = "TestDescription",
             AppointmentStatus = AppointmentStatus.InProgress,
         };
+        
+        await _dbContext.Appointments.AddAsync(appointment);
+        await _dbContext.SaveChangesAsync();
 
         var company = new Company
         {
@@ -392,6 +401,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
             Description = "TestDescription",
             AppointmentStatus = AppointmentStatus.InProgress,
         };
+        
+        await _dbContext.Appointments.AddAsync(appointment);
+        await _dbContext.SaveChangesAsync();
 
         var company = new Company
         {
@@ -502,6 +514,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
             Description = "TestDescription",
             AppointmentStatus = AppointmentStatus.InProgress,
         };
+        
+        await _dbContext.Appointments.AddAsync(appointment);
+        await _dbContext.SaveChangesAsync();
 
         var company = new Company
         {
@@ -614,6 +629,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
             Description = "TestDescription",
             AppointmentStatus = AppointmentStatus.InProgress,
         };
+        
+        await _dbContext.Appointments.AddAsync(appointment);
+        await _dbContext.SaveChangesAsync();
 
         var company = new Company
         {
@@ -728,6 +746,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
             Description = "TestDescription",
             AppointmentStatus = AppointmentStatus.InProgress,
         };
+        
+        await _dbContext.Appointments.AddAsync(appointment);
+        await _dbContext.SaveChangesAsync();
 
         var company = new Company
         {
@@ -836,6 +857,9 @@ public class IssueControllerTests : BaseIntegrationTest, IDisposable
             Description = "TestDescription",
             AppointmentStatus = AppointmentStatus.InProgress,
         };
+        
+        await _dbContext.Appointments.AddAsync(appointment);
+        await _dbContext.SaveChangesAsync();
 
         var company = new Company
         {

@@ -85,7 +85,7 @@ public class VehicleControllerTests : BaseIntegrationTest, IDisposable
         var command = new CreateVehicleCommand
         {
             EngineId = engine.Id,
-            Vin = "",
+            Vin = "Test",
             Make = "TestMake",
             Model = "TestModel",
             Generation = "TestGeneration",
@@ -188,6 +188,9 @@ public class VehicleControllerTests : BaseIntegrationTest, IDisposable
             TorqueNm = 123,
             FuelType = FuelType.Gasoline
         };
+        
+        await _dbContext.Engines.AddAsync(engine);
+        await _dbContext.SaveChangesAsync();
 
         var newEngine = new Engine
         {
@@ -198,7 +201,7 @@ public class VehicleControllerTests : BaseIntegrationTest, IDisposable
             FuelType = FuelType.Gasoline
         };
 
-        await _dbContext.Engines.AddAsync(engine);
+        await _dbContext.Engines.AddAsync(newEngine);
         await _dbContext.SaveChangesAsync();
 
         var vehicle = new Vehicle
@@ -210,6 +213,9 @@ public class VehicleControllerTests : BaseIntegrationTest, IDisposable
             Generation = "TestGeneration",
             Year = 2024
         };
+        
+        await _dbContext.Vehicles.AddAsync(vehicle);
+        await _dbContext.SaveChangesAsync();
 
         // Act
         var patchDoc = new JsonPatchDocument<UpdateVehicleDto>();
@@ -235,6 +241,9 @@ public class VehicleControllerTests : BaseIntegrationTest, IDisposable
             TorqueNm = 123,
             FuelType = FuelType.Gasoline
         };
+        
+        await _dbContext.Engines.AddAsync(engine);
+        await _dbContext.SaveChangesAsync();
 
         var newEngine = new Engine
         {
@@ -247,7 +256,7 @@ public class VehicleControllerTests : BaseIntegrationTest, IDisposable
 
         const string invalidId = "9c0287a9-4bdc-4937-a22b-c9d1c7118803";
 
-        await _dbContext.Engines.AddAsync(engine);
+        await _dbContext.Engines.AddAsync(newEngine);
         await _dbContext.SaveChangesAsync();
 
         var vehicle = new Vehicle
@@ -259,6 +268,9 @@ public class VehicleControllerTests : BaseIntegrationTest, IDisposable
             Generation = "TestGeneration",
             Year = 2024
         };
+        
+        await _dbContext.Vehicles.AddAsync(vehicle);
+        await _dbContext.SaveChangesAsync();
 
         // Act
         var patchDoc = new JsonPatchDocument<UpdateVehicleDto>();
@@ -269,7 +281,7 @@ public class VehicleControllerTests : BaseIntegrationTest, IDisposable
         var response = await Client.PatchAsync($"api/vehicle/{invalidId}", content);
 
         // Assert
-        Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 
     [Fact]
