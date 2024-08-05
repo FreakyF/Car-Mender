@@ -1,0 +1,81 @@
+﻿using AutoMapper;
+using Car_Mender.Domain.Common;
+using Car_Mender.Domain.Features.Companies.Entities;
+using Car_Mender.Domain.Features.Companies.Repository;
+using Car_Mender.Domain.Models;
+using Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
+using FluentValidation;
+using FluentValidation.Results;
+using Moq;
+
+namespace Car_Mender.Infrastructure.Tests.Features.Companies.Commands.CreateCompany;
+
+public class CreateCompanyCommandHandlerTests
+{
+    private readonly Mock<ICompanyRepository> _mockCompanyRepository;
+    private readonly Mock<IValidator<CreateCompanyCommand>> _mockValidator;
+    private readonly Mock<IMapper> _mockMapper;
+    private readonly CreateCompanyCommandHandler _handler;
+
+    public CreateCompanyCommandHandlerTests()
+    {
+        _mockCompanyRepository = new Mock<ICompanyRepository>();
+        _mockValidator = new Mock<IValidator<CreateCompanyCommand>>();
+        _mockMapper = new Mock<IMapper>();
+        _handler = new CreateCompanyCommandHandler(_mockCompanyRepository.Object, _mockValidator.Object,
+            _mockMapper.Object);
+    }
+
+    [Fact]
+    public async Task Handle_ValidCommand_ShouldReturnValidId()
+    {
+        // Arrange
+        var command = new CreateCompanyCommand
+        {
+            Email = "test@mail.com",
+            Name = "TestName",
+            Address = new Address
+            {
+                Street = "TestStreet",
+                City = "TestCity",
+                PostalCode = "12-345",
+                Region = "TestRegion",
+                Country = "TestCountry"
+            },
+            Phone = "123456789",
+            Nip = "123-456-78-90"
+        };
+
+        var company = new Company
+        {
+            Email = "test@mail.com",
+            Name = "TestName",
+            Address = new Address
+            {
+                Street = "TestStreet",
+                City = "TestCity",
+                PostalCode = "12-345",
+                Region = "TestRegion",
+                Country = "TestCountry"
+            },
+            Phone = "123456789",
+            Nip = "123-456-78-90"
+        };
+
+        var validationResult = new ValidationResult();
+        _mockValidator.Setup(v => v.ValidateAsync(It.IsAny<CreateCompanyCommand>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(validationResult);
+
+        _mockMapper.Setup(m => m.Map<Company>(It.IsAny<CreateCompanyCommand>()))
+            .Returns(company);
+
+        _mockCompanyRepository.Setup(r => r.CreateCompanyAsync(It.IsAny<Company>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Result<Guid>.Success(company.Id));
+
+        // Act
+        var result = await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        Assert.Equal(company.Id, result.Value);
+    }
+}
