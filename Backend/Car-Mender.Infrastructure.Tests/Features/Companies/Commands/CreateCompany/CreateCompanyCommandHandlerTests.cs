@@ -7,7 +7,6 @@ using Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Car_Mender.Infrastructure.Tests.Features.Companies.Commands.CreateCompany;
 
@@ -177,6 +176,65 @@ public class CreateCompanyCommandHandlerTests
             c.Email == command.Email &&
             c.Name == command.Name &&
             c.Address == command.Address &&
+            c.Phone == command.Phone &&
+            c.Nip == command.Nip)), Times.Once);
+    }
+
+    [Fact]
+    public async Task Handle_InvalidMapping_ShouldReturnMappingError()
+    {
+        // Arrange
+        var command = new CreateCompanyCommand
+        {
+            Email = "test@mail.com",
+            Name = "TestName",
+            Address = new Address
+            {
+                Street = "TestStreet",
+                City = "TestCity",
+                PostalCode = "12-345",
+                Region = "TestRegion",
+                Country = "TestCountry"
+            },
+            Phone = "123456789",
+            Nip = "123-456-78-90"
+        };
+
+        var validationResult = new ValidationResult();
+        _mockValidator.Setup(v => v.ValidateAsync(It.IsAny<CreateCompanyCommand>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(validationResult);
+
+        var incorrectCompany = new Company
+        {
+            Email = "incorrect@mail.com",
+            Name = "IncorrectName",
+            Address = new Address
+            {
+                Street = "IncorrectStreet",
+                City = "IncorrectCity",
+                PostalCode = "98-765",
+                Region = "IncorrectRegion",
+                Country = "IncorrectCountry"
+            },
+            Phone = "987654321",
+            Nip = "098-765-43-21"
+        };
+
+        _mockMapper.Setup(m => m.Map<Company>(It.IsAny<CreateCompanyCommand>()))
+            .Returns(incorrectCompany);
+
+        // Act
+        await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        _mockMapper.Verify(m => m.Map<Company>(It.Is<CreateCompanyCommand>(c =>
+            c.Email == command.Email &&
+            c.Name == command.Name &&
+            c.Address.Street == command.Address.Street &&
+            c.Address.City == command.Address.City &&
+            c.Address.PostalCode == command.Address.PostalCode &&
+            c.Address.Region == command.Address.Region &&
+            c.Address.Country == command.Address.Country &&
             c.Phone == command.Phone &&
             c.Nip == command.Nip)), Times.Once);
     }
