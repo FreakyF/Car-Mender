@@ -78,4 +78,58 @@ public class CreateCompanyCommandHandlerTests
         // Assert
         Assert.Equal(company.Id, result.Value);
     }
+
+    [Fact]
+    public async Task Handle_InvalidCommand_ShouldReturnValidationErrorCode()
+    {
+        // Arrange
+        var command = new CreateCompanyCommand
+        {
+            Email = "invalid mail",
+            Name = "TestName",
+            Address = new Address
+            {
+                Street = "TestStreet",
+                City = "TestCity",
+                PostalCode = "12-345",
+                Region = "TestRegion",
+                Country = "TestCountry"
+            },
+            Phone = "123456789",
+            Nip = "123-456-78-90"
+        };
+
+        var company = new Company
+        {
+            Email = "invalid mail",
+            Name = "TestName",
+            Address = new Address
+            {
+                Street = "TestStreet",
+                City = "TestCity",
+                PostalCode = "12-345",
+                Region = "TestRegion",
+                Country = "TestCountry"
+            },
+            Phone = "123456789",
+            Nip = "123-456-78-90"
+        };
+
+        var validationErrors = new List<ValidationFailure>
+        {
+            new(nameof(Company.Email), $"Invalid {nameof(Company.Email).ToLowerInvariant()} format")
+        };
+
+        var validationResult = new ValidationResult(validationErrors);
+
+
+        _mockValidator.Setup(v => v.ValidateAsync(It.IsAny<CreateCompanyCommand>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(validationResult);
+
+        // Act
+        var result = await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        Assert.Equal(ErrorCodes.ValidationError, result.Error.Code);
+    }
 }
