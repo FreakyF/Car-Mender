@@ -1,7 +1,6 @@
 using System.Net;
 using System.Text;
 using Car_Mender.Domain.Enums;
-using Car_Mender.Domain.Features.Appointments.DTOs;
 using Car_Mender.Domain.Features.Appointments.Entities;
 using Car_Mender.Domain.Features.Branches.Entities;
 using Car_Mender.Domain.Features.Companies.Entities;
@@ -11,7 +10,6 @@ using Car_Mender.Domain.Features.Issues.Entities;
 using Car_Mender.Domain.Features.Vehicles.Entities;
 using Car_Mender.Domain.Features.Workers.Entities;
 using Car_Mender.Domain.Models;
-using Car_Mender.Infrastructure.Features.Appointments.Commands.CreateAppointment;
 using Car_Mender.Infrastructure.Features.Issues.Commands.CreateIssue;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 using Microsoft.AspNetCore.JsonPatch;
