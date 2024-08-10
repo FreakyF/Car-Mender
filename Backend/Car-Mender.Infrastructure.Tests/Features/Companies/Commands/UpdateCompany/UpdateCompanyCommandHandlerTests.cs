@@ -19,7 +19,7 @@ public class UpdateCompanyCommandHandlerTests
     private readonly Mock<ICompanyRepository> _mockCompanyRepository;
     private readonly Mock<IValidator<UpdateCompanyCommand>> _mockValidator;
     private readonly Mock<IMapper> _mockMapper;
-    private readonly UpdateCompanyCommandHandler _handler;
+    private readonly UpdateCompanyCommandHandler _handler; // TODO: USE IRequestHandler<Command, ReturnValue>
 
     public UpdateCompanyCommandHandlerTests()
     {

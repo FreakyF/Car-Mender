@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car-Mender.API.Tests", "Car
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car-Mender.API.IntegrationTests", "Car-Mender.API.IntegrationTests\Car-Mender.API.IntegrationTests.csproj", "{FEB5BEC5-9278-4ACA-BA05-0A5C12B6D085}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car-Mender.Domain.TestTools", "Car-Mender.Domain.TestTools\Car-Mender.Domain.TestTools.csproj", "{DB17CA68-5152-4A7A-B79B-2325738FF2CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +51,15 @@ Global
 		{FEB5BEC5-9278-4ACA-BA05-0A5C12B6D085}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEB5BEC5-9278-4ACA-BA05-0A5C12B6D085}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEB5BEC5-9278-4ACA-BA05-0A5C12B6D085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB17CA68-5152-4A7A-B79B-2325738FF2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB17CA68-5152-4A7A-B79B-2325738FF2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB17CA68-5152-4A7A-B79B-2325738FF2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB17CA68-5152-4A7A-B79B-2325738FF2CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{62795F02-FA13-40FE-9E9F-9C6768650A07} = {F4F6F610-211F-46E1-8105-077F52C48128}
 		{103B5EDC-E307-41A9-985B-2AF5CE9E572A} = {F4F6F610-211F-46E1-8105-077F52C48128}
 		{FEB5BEC5-9278-4ACA-BA05-0A5C12B6D085} = {F4F6F610-211F-46E1-8105-077F52C48128}
+		{DB17CA68-5152-4A7A-B79B-2325738FF2CA} = {F4F6F610-211F-46E1-8105-077F52C48128}
 	EndGlobalSection
 EndGlobal

@@ -1,7 +1,7 @@
 using AutoMapper;
 using Car_Mender.Infrastructure.Features.BranchesVehicles.Mapping;
 
-namespace Car_Mender.Infrastructure.Tests.Features.Branches.Mapping;
+namespace Car_Mender.Infrastructure.Tests.Features.BranchesVehicles;
 
 public class BranchVehicleMappingProfileTests
 {
