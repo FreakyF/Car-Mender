@@ -11,9 +11,10 @@ public class GetAllBranchesQueryHandler(
 	IMapper mapper
 ) : IRequestHandler<GetAllBranchesQuery, Result<List<GetBranchDto>>>
 {
-	public async Task<Result<List<GetBranchDto>>> Handle(GetAllBranchesQuery request, CancellationToken cancellationToken)
+	public async Task<Result<List<GetBranchDto>>> Handle(GetAllBranchesQuery request,
+		CancellationToken cancellationToken)
 	{
-		var getBranchesResult = await repository.GetAllBranchesAsync(cancellationToken);
+		var getBranchesResult = await repository.GetAllBranchesAsync(request.CompanyId, cancellationToken);
 		if (getBranchesResult.IsFailure) return Result<List<GetBranchDto>>.Failure(getBranchesResult.Error);
 
 		var branchesDtos = mapper.Map<List<GetBranchDto>>(getBranchesResult.Value);

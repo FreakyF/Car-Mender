@@ -45,9 +45,9 @@ public class BranchController(IMediator mediator) : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<ActionResult<GetBranchDto>> GetAllBranches()
+	public async Task<ActionResult<GetBranchDto>> GetAllBranches(Guid companyId)
 	{
-		var query = new GetAllBranchesQuery();
+		var query = new GetAllBranchesQuery(companyId);
 		var getBranchesResult = await mediator.Send(query);
 		if (getBranchesResult.IsSuccess) return Ok(getBranchesResult.Value);
 

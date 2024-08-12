@@ -29,7 +29,7 @@ public class BranchRepository(AppDbContext context) : IBranchRepository
 			: Result<Branch>.Success(branch);
 	}
 
-	public async Task<Result<IEnumerable<Branch>>> GetAllBranchesAsync(CancellationToken cancellationToken)
+	public async Task<Result<IEnumerable<Branch>>> GetAllBranchesAsync(Guid companyId, CancellationToken cancellationToken)
 	{
 		var branches = await context.Branches.ToListAsync(cancellationToken);
 

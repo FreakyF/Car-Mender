@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Car_Mender.Infrastructure.Features.Branches.Queries;
 
-public record GetAllBranchesQuery() : IRequest<Result<List<GetBranchDto>>>;
+public record GetAllBranchesQuery(Guid CompanyId) : IRequest<Result<List<GetBranchDto>>>;
