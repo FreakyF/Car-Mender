@@ -46,7 +46,7 @@ public class CompanyController(IMediator mediator) : ControllerBase
 
 	[HttpPatch("{id:guid}")]
 	public async Task<IActionResult> UpdateCompanyById(Guid id,
-		[FromBody] JsonPatchDocument<UpdateCompanyDto> patchDocument)
+		[FromBody] JsonPatchDocument<UpdateCompanyDto>? patchDocument)
 	{
 		if (patchDocument is null) return BadRequest("Invalid Json Patch Document");
 

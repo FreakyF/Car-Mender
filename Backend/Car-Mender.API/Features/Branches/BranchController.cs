@@ -47,7 +47,7 @@ public class BranchController(IMediator mediator) : ControllerBase
 
 	[HttpPatch("{id:guid}")]
 	public async Task<IActionResult> UpdateBranchById(Guid id,
-		[FromBody] JsonPatchDocument<UpdateBranchDto> patchDocument)
+		[FromBody] JsonPatchDocument<UpdateBranchDto>? patchDocument)
 	{
 		if (patchDocument is null) return BadRequest("Invalid Json Patch Document");
 
