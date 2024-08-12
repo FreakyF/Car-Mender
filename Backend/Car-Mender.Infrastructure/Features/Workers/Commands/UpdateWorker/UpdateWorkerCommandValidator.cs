@@ -6,6 +6,6 @@ public class UpdateWorkerCommandValidator : AbstractValidator<UpdateWorkerComman
 {
 	public UpdateWorkerCommandValidator()
 	{
-		// TODO :)
+		// TODO: ZAIMPLEMENTUJ TEN PIERDOLONY VALIDATOR!
 	}
 }
