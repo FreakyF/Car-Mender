@@ -4,13 +4,12 @@ using Car_Mender.Domain.Features.Companies.DTOs;
 using Car_Mender.Domain.Features.Companies.Entities;
 using Car_Mender.Domain.Features.Companies.Repository;
 using Car_Mender.Domain.Models;
-using Car_Mender.Infrastructure.Features.Companies.Commands.CreateCompany;
 using Car_Mender.Infrastructure.Features.Companies.Commands.UpdateCompany;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.JsonPatch;
 using Moq;
-using System.ComponentModel.Design;
+using MediatR;
 
 namespace Car_Mender.Infrastructure.Tests.Features.Companies.Commands.UpdateCompany;
 
@@ -19,7 +18,7 @@ public class UpdateCompanyCommandHandlerTests
     private readonly Mock<ICompanyRepository> _mockCompanyRepository;
     private readonly Mock<IValidator<UpdateCompanyCommand>> _mockValidator;
     private readonly Mock<IMapper> _mockMapper;
-    private readonly UpdateCompanyCommandHandler _handler; // TODO: USE IRequestHandler<Command, ReturnValue>
+    private readonly IRequestHandler<UpdateCompanyCommand, Result> _handler;
 
     public UpdateCompanyCommandHandlerTests()
     {
@@ -54,18 +53,18 @@ public class UpdateCompanyCommandHandlerTests
             new JsonPatchDocument<UpdateCompanyDto>()
         );
 
-        _mockCompanyRepository.Setup(repo => repo.ExistsAsync(company.Id))
+        _mockCompanyRepository.Setup(repo => repo.ExistsAsync(It.Is<Guid>(id => id == company.Id)))
             .ReturnsAsync(Result<bool>.Success(true));
 
         var validationResult = new ValidationResult();
-        _mockValidator.Setup(v => v.ValidateAsync(It.IsAny<UpdateCompanyCommand>(), It.IsAny<CancellationToken>()))
+        _mockValidator.Setup(v => v.ValidateAsync(It.Is<UpdateCompanyCommand>(cmd => cmd == command), It.IsAny<CancellationToken>()))
             .ReturnsAsync(validationResult);
 
-        _mockCompanyRepository.Setup(repo => repo.GetCompanyByIdAsync(company.Id, It.IsAny<CancellationToken>()))
+        _mockCompanyRepository.Setup(repo => repo.GetCompanyByIdAsync(It.Is<Guid>(id => id == company.Id), It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Company>.Success(company));
 
         var patchDoc = new JsonPatchDocument<Company>();
-        _mockMapper.Setup(m => m.Map<JsonPatchDocument<Company>>(It.IsAny<JsonPatchDocument<UpdateCompanyDto>>()))
+        _mockMapper.Setup(m => m.Map<JsonPatchDocument<Company>>(It.Is<JsonPatchDocument<UpdateCompanyDto>>(dto => dto == command.PatchDocument)))
             .Returns(patchDoc);
 
         _mockCompanyRepository.Setup(repo => repo.SaveChangesAsync(It.IsAny<CancellationToken>()))
