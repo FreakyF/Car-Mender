@@ -29,9 +29,13 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 			: Result<Company>.Success(company);
 	}
 
-	public Task<Result<IEnumerable<Company>>> GetAllCompaniesAsync()
+	public async Task<Result<IEnumerable<Company>>> GetAllCompaniesAsync(CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var companies = await context.Companies.ToListAsync(cancellationToken);
+
+		return companies.Count == 0
+			? CompanyErrors.CouldNotBeFound
+			: Result<IEnumerable<Company>>.Success(companies);
 	}
 
 	public async Task<Result<Guid>> CreateCompanyAsync(Company company, CancellationToken cancellationToken)

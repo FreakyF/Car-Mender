@@ -29,9 +29,13 @@ public class WorkerRepository(AppDbContext context) : IWorkerRepository
 			: Result<Worker>.Success(worker);
 	}
 
-	public Task<Result<IEnumerable<Worker>>> GetAllWorkersAsync()
+	public async Task<Result<IEnumerable<Worker>>> GetAllWorkersAsync(CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var workers = await context.Workers.ToListAsync(cancellationToken);
+
+		return workers.Count == 0
+			? WorkerErrors.CouldNotBeFound
+			: Result<IEnumerable<Worker>>.Success(workers);
 	}
 
 	public async Task<Result<Guid>> CreateWorkerAsync(Worker worker, CancellationToken cancellationToken)

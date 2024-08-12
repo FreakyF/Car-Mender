@@ -7,7 +7,7 @@ public interface ICompanyRepository
 {
 	Task<Result<Company>> GetCompanyByIdAsync(Guid id, CancellationToken cancellationToken);
 	Task<Result<Company>> GetCompanyByIdAsNoTrackingAsync(Guid id, CancellationToken cancellationToken);
-	Task<Result<IEnumerable<Company>>> GetAllCompaniesAsync();
+	Task<Result<IEnumerable<Company>>> GetAllCompaniesAsync(CancellationToken cancellationToken);
 	Task<Result<Guid>> CreateCompanyAsync(Company company, CancellationToken cancellationToken);
 	Task<Result> UpdateCompanyAsync(Company company, CancellationToken cancellationToken);
 	Task<Result> DeleteCompanyAsync(Guid id, CancellationToken cancellationToken);

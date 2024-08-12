@@ -31,9 +31,13 @@ public class AppointmentRepository(AppDbContext context) : IAppointmentRepositor
 			: Result<Appointment>.Success(appointment);
 	}
 
-	public Task<Result<IEnumerable<Appointment>>> GetAllAppointmentsAsync()
+	public async Task<Result<IEnumerable<Appointment>>> GetAllAppointmentsAsync(CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var appointments = await context.Appointments.ToListAsync(cancellationToken);
+
+		return appointments.Count == 0
+			? AppointmentErrors.CouldNotBeFound
+			: Result<IEnumerable<Appointment>>.Success(appointments);
 	}
 
 	public async Task<Result<Guid>> CreateAppointmentAsync(Appointment appointment, CancellationToken cancellationToken)

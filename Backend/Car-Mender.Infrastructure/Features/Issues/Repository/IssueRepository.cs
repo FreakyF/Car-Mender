@@ -31,9 +31,13 @@ public class IssueRepository(AppDbContext context) : IIssueRepository
 			: Result<Issue>.Success(issue);
 	}
 
-	public Task<IEnumerable<Issue>> GetAllIssuesAsync()
+	public async Task<Result<IEnumerable<Issue>>> GetAllIssuesAsync(CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var issues = await context.Issues.ToListAsync(cancellationToken);
+
+		return issues.Count == 0
+			? IssueErrors.CouldNotBeFound
+			: Result<IEnumerable<Issue>>.Success(issues);
 	}
 
 	public async Task<Result<Guid>> CreateIssueAsync(Issue issue, CancellationToken cancellationToken)

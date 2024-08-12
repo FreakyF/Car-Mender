@@ -30,9 +30,13 @@ public class BranchVehicleRepository(AppDbContext context) : IBranchVehicleRepos
 			: Result<BranchVehicle>.Success(branchVehicle);
 	}
 
-	public Task<Result<IEnumerable<BranchVehicle>>> GetAllBranchVehiclesAsync()
+	public async Task<Result<IEnumerable<BranchVehicle>>> GetAllBranchVehiclesAsync(CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var branchesVehicles = await context.BranchesVehicles.ToListAsync(cancellationToken);
+
+		return branchesVehicles.Count == 0
+			? BranchVehiclesErrors.CouldNotBeFound
+			: Result<IEnumerable<BranchVehicle>>.Success(branchesVehicles);
 	}
 
 	public async Task<Result<Guid>> CreateBranchVehicleAsync(BranchVehicle branchVehicle,

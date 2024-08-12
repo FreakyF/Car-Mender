@@ -29,9 +29,13 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
 			: Result<Vehicle>.Success(vehicle);
 	}
 
-	public Task<Result<IEnumerable<Vehicle>>> GetAllVehiclesAsync()
+	public async Task<Result<IEnumerable<Vehicle>>> GetAllVehiclesAsync(CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var vehicles = await context.Vehicles.ToListAsync(cancellationToken);
+
+		return vehicles.Count == 0
+			? VehicleErrors.CouldNotBeFound
+			: Result<IEnumerable<Vehicle>>.Success(vehicles);
 	}
 
 	public async Task<Result<Guid>> CreateVehicleAsync(Vehicle vehicle, CancellationToken cancellationToken)

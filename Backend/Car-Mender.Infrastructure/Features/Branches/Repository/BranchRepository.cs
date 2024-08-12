@@ -29,9 +29,13 @@ public class BranchRepository(AppDbContext context) : IBranchRepository
 			: Result<Branch>.Success(branch);
 	}
 
-	public Task<Result<IEnumerable<Branch>>> GetAllBranchesAsync()
+	public async Task<Result<IEnumerable<Branch>>> GetAllBranchesAsync(CancellationToken cancellationToken)
 	{
-		throw new NotImplementedException();
+		var branches = await context.Branches.ToListAsync(cancellationToken);
+
+		return branches.Count == 0
+			? BranchErrors.CouldNotBeFound
+			: Result<IEnumerable<Branch>>.Success(branches);
 	}
 
 	public async Task<Result<Guid>> CreateBranchAsync(Branch branch, CancellationToken cancellationToken)

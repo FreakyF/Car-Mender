@@ -7,7 +7,7 @@ public interface IEngineRepository
 {
 	Task<Result<Engine>> GetEngineByIdAsync(Guid id, CancellationToken cancellationToken);
 	Task<Result<Engine>> GetEngineByIdNoTrackingAsync(Guid id, CancellationToken cancellationToken);
-	Task<IEnumerable<Engine>> GetAllEnginesAsync();
+	Task<Result<IEnumerable<Engine>>> GetAllEnginesAsync(CancellationToken cancellationToken);
 	Task<Result<Guid>> CreateEngineAsync(Engine engine, CancellationToken cancellationToken);
 	Task<Result> UpdateEngineAsync(Engine engine, CancellationToken cancellationToken);
 	Task<Result> DeleteEngineAsync(Guid id, CancellationToken cancellationToken);
