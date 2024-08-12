@@ -55,11 +55,6 @@ public class AppointmentRepository(AppDbContext context) : IAppointmentRepositor
 		return Result<Guid>.Success(appointment.Id);
 	}
 
-	public Task<Result> UpdateAppointmentAsync(Appointment appointment, CancellationToken cancellationToken)
-	{
-		throw new NotImplementedException();
-	}
-
 	public async Task<Result> DeleteAppointmentAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getAppointmentResult = await GetAppointmentByIdAsync(id, cancellationToken);

@@ -52,12 +52,6 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 
 		return Result<Guid>.Success(company.Id);
 	}
-
-	public Task<Result> UpdateCompanyAsync(Company company, CancellationToken cancellationToken)
-	{
-		throw new NotImplementedException();
-	}
-
 	public async Task<Result> DeleteCompanyAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getCompanyResult = await GetCompanyByIdAsync(id, cancellationToken);

@@ -9,7 +9,6 @@ public interface IAppointmentRepository
 	Task<Result<Appointment>> GetAppointmentByIdNoTrackingAsync(Guid id, CancellationToken cancellationToken);
 	Task<Result<IEnumerable<Appointment>>> GetAllAppointmentsAsync(CancellationToken cancellationToken);
 	Task<Result<Guid>> CreateAppointmentAsync(Appointment appointment, CancellationToken cancellationToken);
-	Task<Result> UpdateAppointmentAsync(Appointment appointment, CancellationToken cancellationToken);
 	Task<Result> DeleteAppointmentAsync(Guid id, CancellationToken cancellationToken);
 	Task<Result<bool>> ExistsAsync(Guid id);
 	Task<Result<int>> SaveChangesAsync(CancellationToken cancellationToken);

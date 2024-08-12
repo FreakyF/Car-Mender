@@ -53,11 +53,6 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
 		return Result<Guid>.Success(vehicle.Id);
 	}
 
-	public Task<Result> UpdateVehicleAsync(Vehicle vehicle, CancellationToken cancellationToken)
-	{
-		throw new NotImplementedException();
-	}
-
 	public async Task<Result> DeleteVehicleAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getVehicleResult = await GetVehicleByIdAsync(id, cancellationToken);

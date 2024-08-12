@@ -53,11 +53,6 @@ public class WorkerRepository(AppDbContext context) : IWorkerRepository
 		return Result<Guid>.Success(worker.Id);
 	}
 
-	public Task<Result> UpdateWorkerAsync(Worker worker, CancellationToken cancellationToken)
-	{
-		throw new NotImplementedException();
-	}
-
 	public async Task<Result> DeleteWorkerAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getWorkerResult = await GetWorkerByIdAsync(id, cancellationToken);

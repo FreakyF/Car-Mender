@@ -55,11 +55,6 @@ public class BranchVehicleRepository(AppDbContext context) : IBranchVehicleRepos
 		return Result<Guid>.Success(branchVehicle.Id);
 	}
 
-	public Task<Result> UpdateBranchVehicleAsync(BranchVehicle branchVehicle, CancellationToken cancellationToken)
-	{
-		throw new NotImplementedException();
-	}
-
 	public async Task<Result> DeleteBranchVehicleAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getBranchVehicleResult = await GetBranchVehicleByIdAsync(id, cancellationToken);

@@ -52,12 +52,6 @@ public class BranchRepository(AppDbContext context) : IBranchRepository
 
 		return Result<Guid>.Success(branch.Id);
 	}
-
-	public Task<Result> UpdateBranchAsync(Branch branch, CancellationToken cancellationToken)
-	{
-		throw new NotImplementedException();
-	}
-
 	public async Task<Result> DeleteBranchAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getBranchResult = await GetBranchByIdAsync(id, cancellationToken);

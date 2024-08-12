@@ -55,11 +55,6 @@ public class IssueRepository(AppDbContext context) : IIssueRepository
 		return Result<Guid>.Success(issue.Id);
 	}
 
-	public Task<Result> UpdateIssueAsync(Issue issue, CancellationToken cancellationToken)
-	{
-		throw new NotImplementedException();
-	}
-
 	public async Task<Result> DeleteIssueAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getIssueResult = await GetIssueByIdAsync(id, cancellationToken);

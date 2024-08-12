@@ -53,11 +53,6 @@ public class EngineRepository(AppDbContext context) : IEngineRepository
 		return Result<Guid>.Success(engine.Id);
 	}
 
-	public Task<Result> UpdateEngineAsync(Engine engine, CancellationToken cancellationToken)
-	{
-		throw new NotImplementedException();
-	}
-
 	public async Task<Result> DeleteEngineAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getEngineResult = await GetEngineByIdAsync(id, cancellationToken);
