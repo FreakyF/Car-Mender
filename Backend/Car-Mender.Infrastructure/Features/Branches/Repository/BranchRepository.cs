@@ -29,9 +29,12 @@ public class BranchRepository(AppDbContext context) : IBranchRepository
 			: Result<Branch>.Success(branch);
 	}
 
-	public async Task<Result<IEnumerable<Branch>>> GetAllBranchesAsync(Guid companyId, CancellationToken cancellationToken)
+	public async Task<Result<IEnumerable<Branch>>> GetAllBranchesAsync(Guid companyId,
+		CancellationToken cancellationToken)
 	{
-		var branches = await context.Branches.ToListAsync(cancellationToken);
+		var branches = await context.Branches
+			.Where(w => w.CompanyId == companyId)
+			.ToListAsync(cancellationToken);
 
 		return branches.Count == 0
 			? BranchErrors.CouldNotBeFound
@@ -52,6 +55,7 @@ public class BranchRepository(AppDbContext context) : IBranchRepository
 
 		return Result<Guid>.Success(branch.Id);
 	}
+
 	public async Task<Result> DeleteBranchAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getBranchResult = await GetBranchByIdAsync(id, cancellationToken);

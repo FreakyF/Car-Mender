@@ -29,10 +29,13 @@ public class WorkerRepository(AppDbContext context) : IWorkerRepository
 			: Result<Worker>.Success(worker);
 	}
 
-	public async Task<Result<IEnumerable<Worker>>> GetAllWorkersAsync(CancellationToken cancellationToken)
+	public async Task<Result<IEnumerable<Worker>>> GetAllWorkersAsync(Guid branchId,
+		CancellationToken cancellationToken)
 	{
-		var workers = await context.Workers.ToListAsync(cancellationToken);
-
+		var workers = await context.Workers
+			.Where(w => w.BranchId == branchId)
+			.ToListAsync(cancellationToken);
+		
 		return workers.Count == 0
 			? WorkerErrors.CouldNotBeFound
 			: Result<IEnumerable<Worker>>.Success(workers);

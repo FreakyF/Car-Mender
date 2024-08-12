@@ -29,15 +29,6 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 			: Result<Company>.Success(company);
 	}
 
-	public async Task<Result<IEnumerable<Company>>> GetAllCompaniesAsync(CancellationToken cancellationToken)
-	{
-		var companies = await context.Companies.ToListAsync(cancellationToken);
-
-		return companies.Count == 0
-			? CompanyErrors.CouldNotBeFound
-			: Result<IEnumerable<Company>>.Success(companies);
-	}
-
 	public async Task<Result<Guid>> CreateCompanyAsync(Company company, CancellationToken cancellationToken)
 	{
 		try
@@ -52,6 +43,7 @@ public class CompanyRepository(AppDbContext context) : ICompanyRepository
 
 		return Result<Guid>.Success(company.Id);
 	}
+
 	public async Task<Result> DeleteCompanyAsync(Guid id, CancellationToken cancellationToken)
 	{
 		var getCompanyResult = await GetCompanyByIdAsync(id, cancellationToken);

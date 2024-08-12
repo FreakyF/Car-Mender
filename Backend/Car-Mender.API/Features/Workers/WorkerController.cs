@@ -44,6 +44,22 @@ public class WorkerController(IMediator mediator) : ControllerBase
 		};
 	}
 
+	[HttpGet]
+	public async Task<ActionResult<GetWorkerDto>> GetAllWorkers(Guid branchId)
+	{
+		var query = new GetAllWorkersQuery(branchId);
+		var getWorkersResult = await mediator.Send(query);
+		if (getWorkersResult.IsSuccess) return Ok(getWorkersResult.Value);
+
+		return getWorkersResult.Error.Code switch
+		{
+			ErrorCodes.InvalidId => BadRequest(getWorkersResult.Error.Description),
+			WorkerErrorCodes.CouldNotBeFound => NotFound(getWorkersResult.Error.Description),
+			_ => StatusCode(500)
+		};
+	}
+
+
 	[HttpPatch("{id:guid}")]
 	public async Task<IActionResult> UpdateWorkerById(Guid id,
 		[FromBody] JsonPatchDocument<UpdateWorkerDto>? patchDocument)

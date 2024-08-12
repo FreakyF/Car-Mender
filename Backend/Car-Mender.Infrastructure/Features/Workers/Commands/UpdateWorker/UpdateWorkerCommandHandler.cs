@@ -45,7 +45,7 @@ public class UpdateWorkerCommandHandler(
 		var getBranchResult = await workerRepository.GetWorkerByIdAsync(request.Id, cancellationToken);
 		var patchDoc = mapper.Map<JsonPatchDocument<Worker>>(request.PatchDocument);
 		patchDoc.ApplyTo(getBranchResult.Value!);
-		await branchRepository.SaveChangesAsync(cancellationToken);
+		await workerRepository.SaveChangesAsync(cancellationToken);
 
 		return Result.Success();
 	}
@@ -53,7 +53,7 @@ public class UpdateWorkerCommandHandler(
 	private static Operation<UpdateWorkerDto>? GetUpdateBranchIdOperation(UpdateWorkerCommand request)
 	{
 		return request.PatchDocument.Operations
-			.FirstOrDefault(op =>
+			.Find(op =>
 				string.Equals(op.path, $"/{nameof(UpdateWorkerDto.BranchId)}",
 					StringComparison.InvariantCultureIgnoreCase)
 			);
