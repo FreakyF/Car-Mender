@@ -1,7 +1,6 @@
 using Car_Mender.Domain.Common;
 using Car_Mender.Domain.Features.Branches.DTOs;
 using Car_Mender.Domain.Features.Branches.Errors;
-using Car_Mender.Domain.Features.Companies.Errors;
 using Car_Mender.Infrastructure.Features.Branches.Commands.CreateBranch;
 using Car_Mender.Infrastructure.Features.Branches.Commands.DeleteBranch;
 using Car_Mender.Infrastructure.Features.Branches.Commands.UpdateBranch;
@@ -41,6 +40,21 @@ public class BranchController(IMediator mediator) : ControllerBase
 		{
 			ErrorCodes.InvalidId => BadRequest(getBranchResult.Error.Description),
 			BranchErrorCodes.CouldNotBeFound => NotFound(getBranchResult.Error.Description),
+			_ => StatusCode(500)
+		};
+	}
+
+	[HttpGet]
+	public async Task<ActionResult<GetBranchDto>> GetAllBranches()
+	{
+		var query = new GetAllBranchesQuery();
+		var getBranchesResult = await mediator.Send(query);
+		if (getBranchesResult.IsSuccess) return Ok(getBranchesResult.Value);
+
+		return getBranchesResult.Error.Code switch
+		{
+			ErrorCodes.InvalidId => BadRequest(getBranchesResult.Error.Description),
+			BranchErrorCodes.CouldNotBeFound => NotFound(getBranchesResult.Error.Description),
 			_ => StatusCode(500)
 		};
 	}
