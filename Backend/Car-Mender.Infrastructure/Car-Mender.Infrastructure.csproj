@@ -27,8 +27,4 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Repositories\" />
-    </ItemGroup>
-
 </Project>
