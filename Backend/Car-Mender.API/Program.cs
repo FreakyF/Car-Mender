@@ -11,13 +11,13 @@ using Car_Mender.Domain.Repositories;
 using Car_Mender.Infrastructure;
 using Car_Mender.Infrastructure.Features.Appointments.Repository;
 using Car_Mender.Infrastructure.Features.Branches.Repository;
+using Car_Mender.Infrastructure.Features.BranchesVehicles.Repository;
 using Car_Mender.Infrastructure.Features.Companies.Repository;
 using Car_Mender.Infrastructure.Features.Engines.Repository;
 using Car_Mender.Infrastructure.Features.Issues.Repository;
 using Car_Mender.Infrastructure.Features.Vehicles.Repository;
 using Car_Mender.Infrastructure.Features.Workers.Repository;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
-using Car_Mender.Infrastructure.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 

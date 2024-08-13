@@ -5,7 +5,7 @@ using Car_Mender.Domain.Repositories;
 using Car_Mender.Infrastructure.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace Car_Mender.Infrastructure.Repositories;
+namespace Car_Mender.Infrastructure.Features.BranchesVehicles.Repository;
 
 public class BranchVehicleRepository(AppDbContext context) : IBranchVehicleRepository
 {

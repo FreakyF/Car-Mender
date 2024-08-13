@@ -31,9 +31,20 @@ public class IssueRepository(AppDbContext context) : IIssueRepository
 			: Result<Issue>.Success(issue);
 	}
 
-	public async Task<Result<IEnumerable<Issue>>> GetAllIssuesAsync(CancellationToken cancellationToken)
+	public async Task<Result<IEnumerable<Issue>>> GetAllIssuesAsync(Guid vehicleId, CancellationToken cancellationToken)
 	{
-		var issues = await context.Issues.ToListAsync(cancellationToken);
+		var issues = await context.Issues
+			.Join(context.Appointments,
+				issue => issue.AppointmentId,
+				appointment => appointment.Id,
+				(issue, appointment) => new { issue, appointment })
+			.Join(context.Vehicles,
+				issueAppointment => issueAppointment.appointment.VehicleId,
+				vehicle => vehicle.Id,
+				(issueAppointment, vehicle) => new { issueAppointment.issue, vehicle })
+			.Where(issueVehicle => issueVehicle.vehicle.Id == vehicleId)
+			.Select(issueVehicle => issueVehicle.issue)
+			.ToListAsync(cancellationToken);
 
 		return issues.Count == 0
 			? IssueErrors.CouldNotBeFound

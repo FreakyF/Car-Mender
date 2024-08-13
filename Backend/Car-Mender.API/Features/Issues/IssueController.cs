@@ -44,6 +44,21 @@ public class IssueController(IMediator mediator) : ControllerBase
 		};
 	}
 
+	[HttpGet]
+	public async Task<ActionResult<GetIssueDto>> GetAllIssues(Guid vehicleId)
+	{
+		var query = new GetAllIssuesQuery(vehicleId);
+		var getIssuesResult = await mediator.Send(query);
+		if (getIssuesResult.IsSuccess) return Ok(getIssuesResult.Value);
+
+		return getIssuesResult.Error.Code switch
+		{
+			ErrorCodes.InvalidId => BadRequest(getIssuesResult.Error.Description),
+			IssueErrorCodes.CouldNotBeFound => NotFound(getIssuesResult.Error.Description),
+			_ => StatusCode(500)
+		};
+	}
+
 	[HttpPatch("{id:guid}")]
 	public async Task<IActionResult> UpdateIssueById(Guid id,
 		[FromBody] JsonPatchDocument<UpdateIssueDto>? patchDocument)
