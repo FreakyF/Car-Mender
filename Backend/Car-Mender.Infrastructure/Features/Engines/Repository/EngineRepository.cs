@@ -29,9 +29,13 @@ public class EngineRepository(AppDbContext context) : IEngineRepository
 			: Result<Engine>.Success(engine);
 	}
 
-	public async Task<Result<IEnumerable<Engine>>> GetAllEnginesAsync(CancellationToken cancellationToken)
+	public async Task<Result<IEnumerable<Engine>>> GetAllEnginesAsync(Guid vehicleId,
+		CancellationToken cancellationToken)
 	{
-		var engines = await context.Engines.ToListAsync(cancellationToken);
+		var engines = await context.Vehicles
+			.Where(v => v.Id == vehicleId)
+			.Select(v => v.Engine)
+			.ToListAsync(cancellationToken);
 
 		return engines.Count == 0
 			? EngineErrors.CouldNotBeFound

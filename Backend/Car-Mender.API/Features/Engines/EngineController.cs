@@ -4,6 +4,7 @@ using Car_Mender.Domain.Features.Engines.Errors;
 using Car_Mender.Infrastructure.Features.Engines.Commands.CreateEngine;
 using Car_Mender.Infrastructure.Features.Engines.Commands.DeleteEngine;
 using Car_Mender.Infrastructure.Features.Engines.Commands.UpdateEngine;
+using Car_Mender.Infrastructure.Features.Engines.Queries.GetAllEnginesQuery;
 using Car_Mender.Infrastructure.Features.Engines.Queries.GetEngineQuery;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
@@ -40,6 +41,21 @@ public class EngineController(IMediator mediator) : ControllerBase
 		{
 			ErrorCodes.InvalidId => BadRequest(getEngineResult.Error.Description),
 			EngineErrorCodes.CouldNotBeFound => NotFound(getEngineResult.Error.Description),
+			_ => StatusCode(500)
+		};
+	}
+
+	[HttpGet]
+	public async Task<ActionResult<GetEngineDto>> GetAllEngines(Guid vehicleId)
+	{
+		var query = new GetAllEnginesQuery(vehicleId);
+		var getEnginesResult = await mediator.Send(query);
+		if (getEnginesResult.IsSuccess) return Ok(getEnginesResult.Value);
+
+		return getEnginesResult.Error.Code switch
+		{
+			ErrorCodes.InvalidId => BadRequest(getEnginesResult.Error.Description),
+			EngineErrorCodes.CouldNotBeFound => NotFound(getEnginesResult.Error.Description),
 			_ => StatusCode(500)
 		};
 	}
